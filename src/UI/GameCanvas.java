@@ -34,14 +34,14 @@ public class GameCanvas extends JPanel{
 
 	private void drawClouds(Graphics g) {
 		Set<Cloud> delete = new HashSet<Cloud>();
-		double xScale = getWidth()/50.0;
-		double yScale = getHeight()/65.0;
+		double xScale = getWidth()/500.0;
+		double yScale = getHeight()/500.0;
 		if (!clouds.isEmpty()){
 			for(Cloud c: clouds){
 				Point p = c.getLoc();
 				g.drawImage(c.draw(xScale, yScale), (int)(p.x*xScale), (int)(p.y*yScale), this);
 				c.move();
-				if(p.x < -20) delete.add(c);
+				if(p.x < -200) delete.add(c);
 			}
 			for(Cloud c:delete){
 				clouds.remove(c);

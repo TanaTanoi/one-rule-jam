@@ -3,7 +3,7 @@ package UI;
 public class Timer extends Thread{
 	
 	GameCanvas canvas;
-	Long tickRate = (long) 50;
+	Long tickRate = (long) 10;
 	
 	public Timer(GameCanvas c){
 		canvas = c;
