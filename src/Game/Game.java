@@ -5,8 +5,7 @@ import java.util.ArrayDeque;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import maps.BasicMap;
-import maps.Map;
+import maps.*;
 
 public class Game {
 
@@ -18,15 +17,15 @@ public class Game {
 	public Game(){
 
 		maps.offer(new BasicMap());
+		maps.offer(new BasicBlock());
 		maps.offer(new BasicMap());
-		maps.offer(new BasicMap());
-		maps.offer(new BasicMap());
+		maps.offer(new BasicBlock());
 		maps.offer(new BasicMap());
 		maps.offer(new BasicMap());
 		maps.offer(new BasicMap());
 
 		currentMap = new BasicMap();
-		nextMap = new BasicMap();
+		nextMap = new BasicBlock();
 		//nextMap.translate(currentMap.getLength(), 0);
 		nextMap.translate(500, 0);
 		maps.peek().translate(1000,0);//500+nextMap.getLength(), 0);

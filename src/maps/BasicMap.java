@@ -32,6 +32,10 @@ public class BasicMap extends Map {
 		g.setColor(color);
 		g.fillPolygon(top);
 		g.fillPolygon(bottom);
+		calculatePolygons(canvasWidth,canvasHeight);
+	}
+
+	private void calculatePolygons(int canvasWidth, int canvasHeight){
 		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
 		int[][] localPolyPoints = new int[4][4];
 		for(int j = 0; j < 4; j++){
@@ -45,10 +49,7 @@ public class BasicMap extends Map {
 		}
 		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
 		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
-
-
 	}
-
 	@Override
 	public boolean intersects(Rectangle rect) {
 		return bottom.intersects(rect)||top.intersects(rect);
