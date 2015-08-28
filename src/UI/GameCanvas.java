@@ -11,13 +11,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JPanel;
-
 import Game.Game;
 import Scenery.Cloud;
 
 public class GameCanvas extends JPanel{
 	Timer tick;
 	ArrayList<Cloud> clouds;
+
+
+
 	Game game;
 	public GameCanvas(Game game){
 		super();
@@ -33,8 +35,7 @@ public class GameCanvas extends JPanel{
 		super.paintComponent(g);
 		paintBackground(g);
 		drawClouds(g);
-		game.drawMaps(g, this.getWidth(),this.getHeight());
-
+		//game.drawMaps(g, this.getWidth(),this.getHeight());
 	}
 
 	private void drawClouds(Graphics g) {
@@ -60,6 +61,7 @@ public class GameCanvas extends JPanel{
 		Color sky2 = new Color(57,200,247);
 		GradientPaint backColor = new GradientPaint(0,0, sky1, 0,getHeight(), sky2);
 		g2d.setPaint(backColor);
+		g2d.fillRect(0, 0, getWidth(), getHeight());	
 		g2d.fillRect(0, 0, getWidth(), getHeight());
 	}
 

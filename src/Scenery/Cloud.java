@@ -5,16 +5,18 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
+import maps.BasicMap;
+
 public class Cloud {
 	double top,left;
 	double speed;
 	int[][] cloudSegments;
-
 	public Cloud(){
-		speed = Math.random()*1.5;
+		speed = Math.random();
 		top = Math.random()*300;
 		left = 1000;
 		spawnSegments();
+		
 	}
 
 
@@ -35,7 +37,7 @@ public class Cloud {
 	}
 
 	public BufferedImage draw(double x, double y){
-		BufferedImage out = new BufferedImage((int)(x*200), (int)(y*200), BufferedImage.TYPE_INT_ARGB);
+		BufferedImage out = new BufferedImage((int)(x*300), (int)(y*300), BufferedImage.TYPE_INT_ARGB);
 		Graphics drawScreen = out.getGraphics();
 		drawScreen.setColor(Color.WHITE);
 		for (int i = 0; i < cloudSegments.length; i++){
