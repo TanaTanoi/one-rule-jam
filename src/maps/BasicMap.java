@@ -29,20 +29,23 @@ public class BasicMap extends Map {
 
 	@Override
 	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
+		g.setColor(color);
+		g.fillPolygon(top);
+		g.fillPolygon(bottom);
 		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
-		length*=boxSize;
 		int[][] localPolyPoints = new int[4][4];
 		for(int j = 0; j < 4; j++){
 			for(int i = 0;i<4;i++){
 				localPolyPoints[j][i] = polyPoints[j][i]*boxSize;
+				if(i==3&&j==0){
+					length = localPolyPoints[j][i];
+				}
 				System.out.println(localPolyPoints[j][i]);
 			}
 		}
 		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
 		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
-		g.setColor(color);
-		g.fillPolygon(top);
-		g.fillPolygon(bottom);
+
 
 	}
 
