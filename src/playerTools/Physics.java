@@ -17,9 +17,18 @@ public class Physics {
 		return vertSpeed + gravity*Timer.tickRate; // vf = vi + at
 	}
 
-	public static Point moveJump(int currentX, int currentY, double vertSpeed) {
-		int x = (int)(currentX + speedX*Timer.tickRate); // d = vt
-		int y = (int)(vertSpeed*Timer.tickRate + 0.5*gravity*Timer.tickRate*Timer.tickRate); // d = vit + 1/2a(t*t)
-		return new Point(x,y);
+	public static int moveJump(int currentX, int currentY, double vertSpeed) {
+		return (int)(vertSpeed*Timer.tickRate + 0.5*gravity*Timer.tickRate*Timer.tickRate); // d = vit + 1/2a(t*t)
+	}
+
+	public static double calculateGrappleAngle(double currentX, double currentY,
+			int grappleX, int grappleY) {
+
+		// calculates lengths of each side of triangel
+		double adj = grappleY - currentY;
+		double opp = grappleX - currentX;
+		double hypot = Math.sqrt(adj*adj + opp*opp);
+
+		return Math.cos(adj/hypot);
 	}
 }
