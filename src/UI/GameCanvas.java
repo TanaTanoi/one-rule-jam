@@ -12,24 +12,29 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import Game.Game;
 import Scenery.Cloud;
 
 public class GameCanvas extends JPanel{
 	Timer tick;
 	ArrayList<Cloud> clouds;
-	public GameCanvas(){
+	Game game;
+	public GameCanvas(Game game){
 		super();
+		this.game = game;
 		clouds = new ArrayList<Cloud>();
 		tick = new Timer(this);
 		tick.start();
+
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		paintBackground(g);
 		drawClouds(g);
-		
+		game.drawMaps(g, this.getWidth(),this.getHeight());
+
 	}
 
 	private void drawClouds(Graphics g) {
@@ -50,22 +55,22 @@ public class GameCanvas extends JPanel{
 	}
 
 	private void paintBackground(Graphics g) {
-		Graphics2D g2d = (Graphics2D)g;	
+		Graphics2D g2d = (Graphics2D)g;
 		Color sky1 = new Color(0,110,255);
 		Color sky2 = new Color(57,200,247);
 		GradientPaint backColor = new GradientPaint(0,0, sky1, 0,getHeight(), sky2);
 		g2d.setPaint(backColor);
-		g2d.fillRect(0, 0, getWidth(), getHeight());		
+		g2d.fillRect(0, 0, getWidth(), getHeight());
 	}
 
 	@Override
 	public Dimension getPreferredSize(){
 		return new Dimension(500,500);
 	}
-	
+
 	public void tick(){
 		if (clouds.size() < 10 && Math.random() < 0.1){
-			clouds.add(new Cloud());	
+			clouds.add(new Cloud());
 		}
 		repaint();
 	}

@@ -4,10 +4,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import playerTools.Player;
+
 public abstract class Map {
 
 	private static final int BOX_SIZE = 10;
-
+	//The length of this segment of map
+	int length;
+	public int getLength(){return length;}
 
 	/**
 	 * Draws the Map onto the graphics pane using the canvas width and height
@@ -39,7 +43,7 @@ public abstract class Map {
 	 * @param p
 	 * @return - true if they are obeying
 	 */
-	//abstract boolean assessRule(Player p);
+	abstract public boolean assessRule(Player p);
 
 	/**
 	 * Moves this map by the given delta x,y.
@@ -49,7 +53,7 @@ public abstract class Map {
 	 */
 	abstract public void translate(int deltaX, int deltaY);
 
-	int getDrawBoxSize(int canvasWidth, int canvasHeight){
+	protected int getDrawBoxSize(int canvasWidth, int canvasHeight){
 		return canvasHeight/BOX_SIZE;
 	}
 }

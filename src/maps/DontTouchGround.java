@@ -13,16 +13,13 @@ import playerTools.Player;
  * @author Tana
  *
  */
-public class BasicMap extends Map {
+public class DontTouchGround extends Map {
 
-	Polygon bottom, top;
-	Color color;
+	Polygon top, bottom;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
+	private static final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
 
-	public BasicMap(){
-		length = 10;
-		color = new Color((int) (Math.random()*100000));
+	public DontTouchGround(){
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
 		bottom = new Polygon(polyPoints[2],polyPoints[3],4);
 	}
@@ -30,7 +27,6 @@ public class BasicMap extends Map {
 	@Override
 	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
 		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
-		length*=boxSize;
 		int[][] localPolyPoints = new int[4][4];
 		for(int j = 0; j < 4; j++){
 			for(int i = 0;i<4;i++){
@@ -40,7 +36,7 @@ public class BasicMap extends Map {
 		}
 		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
 		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
-		g.setColor(color);
+		g.setColor(Color.red);
 		g.fillPolygon(top);
 		g.fillPolygon(bottom);
 
@@ -64,8 +60,8 @@ public class BasicMap extends Map {
 
 	@Override
 	public boolean assessRule(Player p) {
-		//No Rule
-		return true;
+		//The ground is lava
+		return bottom.intersects(p.getBoundingBox());
 	}
 
 
