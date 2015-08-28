@@ -5,13 +5,21 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
+import Scenery.Cloud;
+
 public class GameCanvas extends JPanel{
 	Timer tick;
+	ArrayList<Cloud> clouds;
 	public GameCanvas(){
 		super();
+		clouds = new ArrayList<Cloud>();
 		tick = new Timer(this);
 		tick.start();
 	}
@@ -20,6 +28,25 @@ public class GameCanvas extends JPanel{
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		paintBackground(g);
+		drawClouds(g);
+		
+	}
+
+	private void drawClouds(Graphics g) {
+		Set<Cloud> delete = new HashSet<Cloud>();
+		double xScale = getWidth()/50.0;
+		double yScale = getHeight()/65.0;
+		if (!clouds.isEmpty()){
+			for(Cloud c: clouds){
+				Point p = c.getLoc();
+				g.drawImage(c.draw(xScale, yScale), (int)(p.x*xScale), (int)(p.y*yScale), this);
+				c.move();
+				if(p.x < -20) delete.add(c);
+			}
+			for(Cloud c:delete){
+				clouds.remove(c);
+			}
+		}
 	}
 
 	private void paintBackground(Graphics g) {
@@ -37,6 +64,9 @@ public class GameCanvas extends JPanel{
 	}
 	
 	public void tick(){
-		
+		if (clouds.size() < 10 && Math.random() < 0.1){
+			clouds.add(new Cloud());	
+		}
+		repaint();
 	}
 }
