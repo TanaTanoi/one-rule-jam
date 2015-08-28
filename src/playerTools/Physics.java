@@ -24,11 +24,22 @@ public class Physics {
 	public static double calculateGrappleAngle(double currentX, double currentY,
 			int grappleX, int grappleY) {
 
-		// calculates lengths of each side of triangel
+		// calculates lengths of each side of triangle
 		double adj = grappleY - currentY;
 		double opp = grappleX - currentX;
 		double hypot = Math.sqrt(adj*adj + opp*opp);
 
 		return Math.cos(adj/hypot);
+	}
+
+	public static int movePullGrapple(int currentX, int currentY, double pullSpeed,
+			double grappleAngle) {
+
+		// calculates lengths of each side of triangel
+		double hypot = pullSpeed*Timer.tickRate;
+		double distX = speedX*Timer.tickRate;
+		double distY = Math.sqrt(hypot*hypot - distX*distX);
+
+		return (int)(currentY+distY);
 	}
 }

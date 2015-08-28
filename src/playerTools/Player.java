@@ -23,6 +23,7 @@ public class Player {
 	private final int initJumpSpeed = 3;
 	private double vertSpeed;
 	private double grappleAngle;
+	private double pullSpeed;
 
 	// Player actions
 	private boolean isJumping;
@@ -66,8 +67,10 @@ public class Player {
 	 * Responsible for setting up jumping motion
 	 */
 	public void jump(){
-		isJumping = true;
-		vertSpeed = initJumpSpeed;
+		if(!inAction()){
+			isJumping = true;
+			vertSpeed = initJumpSpeed;
+		}
 	}
 
 	/**
@@ -89,7 +92,7 @@ public class Player {
 			vertSpeed = Physics.fallSpeed(vertSpeed);
 		}
 		else if(isPullGrapple){
-			// grapple angle constant
+			posY = Physics.movePullGrapple(posX,posY,pullSpeed,grappleAngle);
 		}
 		else if(isSwingGrapple){
 			// grapple angle needs to change
