@@ -1,10 +1,10 @@
 package UI;
 
 public class Timer extends Thread{
-	
+
 	GameCanvas canvas;
-	Long tickRate = (long) 10;
-	
+	public static final Long tickRate = (long) 10;
+
 	public Timer(GameCanvas c){
 		canvas = c;
 	}
@@ -17,7 +17,7 @@ public class Timer extends Thread{
 				System.out.println("shits fucked");
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 }

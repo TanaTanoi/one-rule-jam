@@ -14,10 +14,15 @@ public class Player {
 	private Rectangle boundingBox;
 
 	// Player images
-	private Image[] images;
+	private Image[] runImages;
+	private Image[] jumpImages;
+	private Image[] grappleImages;
 
 	// Physics helpers
 	private double vertSpeed;
+	private boolean isJumping;
+	private boolean isPullGrapple;
+	private boolean isSwingGrapple;
 
 	public Player(){
 
@@ -35,22 +40,39 @@ public class Player {
 		return boundingBox;
 	}
 
-	public boolean isJumping(){
-		// do something here
-	}
-
 	public void move(){
-		if(isJumping()){
+		if(isJumping){
 			Physics.moveJump(posX,posY,vertSpeed);
 			vertSpeed = Physics.fallSpeed(vertSpeed);
+		}
+		else if(isPullGrapple){
+
+		}
+		else if(isSwingGrapple){
+
 		}
 		else{
 			Physics.moveRun(posX, posY);
 		}
+
+		// Need a check here that is intersection point is too low (i.e. below the ground)
+		// that will place the player at the lowest possible point (i.e. ground level)
 	}
 
 	public void draw(Graphics g){
 		g.drawRect(posX, posY, width, height);
+		if(isJumping){
+
+		}
+		else if(isPullGrapple){
+
+		}
+		else if(isSwingGrapple){
+
+		}
+		else{
+
+		}
 	}
 
 }
