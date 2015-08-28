@@ -11,15 +11,13 @@ public class Player {
 	private int posY;
 	private int width;
 	private int height;
+	private Rectangle boundingBox;
 
 	// Player images
 	private Image[] images;
 
 	// Physics helpers
-	private int vertSpeed;
-	private boolean isJumping;
-
-	private Rectangle boundingBox;
+	private double vertSpeed;
 
 	public Player(){
 
@@ -37,14 +35,22 @@ public class Player {
 		return boundingBox;
 	}
 
-	public void move(){
+	public boolean isJumping(){
+		// do something here
+	}
 
+	public void move(){
+		if(isJumping()){
+			Physics.moveJump(posX,posY,vertSpeed);
+			vertSpeed = Physics.fallSpeed(vertSpeed);
+		}
+		else{
+			Physics.moveRun(posX, posY);
+		}
 	}
 
 	public void draw(Graphics g){
 		g.drawRect(posX, posY, width, height);
 	}
-
-
 
 }
