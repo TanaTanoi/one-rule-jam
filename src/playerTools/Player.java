@@ -99,7 +99,7 @@ public class Player {
 	 * Responsible for setting up jumping motion
 	 */
 	public void jump(){
-		if(!isJumping){
+		if(!inAction() || (isJumping && vertSpeed < 0)){
 			isJumping = true;
 			vertSpeed = initJumpSpeed;
 		}
@@ -146,6 +146,7 @@ public class Player {
 			posY = Physics.movePullGrapple(posX,posY,pullSpeed,grappleAngle);
 			if(posY > 6*boxSize || grappleX <= boxSize/2){
 				isPullGrapple = false;
+				isJumping = true;
 			}
 		}
 		else if(isSwingGrapple){
