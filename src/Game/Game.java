@@ -20,7 +20,9 @@ public class Game {
 	public void playerJump(){
 		p.jump();
 	}
-
+	public String[] getCurrentRuleString(){
+		return currentMap.getRule();
+	}
 	public Game(){
 		p = new Player();
 		maps.offer(new BasicMap());

@@ -57,8 +57,7 @@ public class BasicMap extends Map {
 		Point tl = new Point((int)rect.getMinX(),(int)rect.getMinY());
 		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());
 		Point tr = new Point((int)rect.getMaxX(),(int)rect.getMinY());
-		return bottom.contains(bl)||bottom.contains(tl)||bottom.contains(br)||bottom.contains(tr)||
-				top.contains(bl)||top.contains(tl)||top.contains(br)||top.contains(tr);
+		return intersects(bl)||intersects(br)||intersects(tl)||intersects(tr);
 	}
 
 	@Override

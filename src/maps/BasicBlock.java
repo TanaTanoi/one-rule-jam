@@ -69,15 +69,7 @@ public class BasicBlock extends Map {
 		Point tl = new Point((int)rect.getMinX(),(int)rect.getMinY());
 		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());
 		Point tr = new Point((int)rect.getMaxX(),(int)rect.getMinY());
-		Line2D frl = new Line2D.Double(tr,br);
-		//if(block.getBounds().contains(fr)){
-		if(block.getBounds().intersectsLine(frl)){
-			System.out.println("TEST");
-			System.exit(0);
-		}
-		return bottom.contains(bl)||bottom.contains(tl)||bottom.contains(br)||bottom.contains(tr)||
-				top.contains(bl)||top.contains(tl)||top.contains(br)||top.contains(tr)||
-				block.contains(bl)||block.contains(tl)||block.contains(br)||block.contains(tr);
+		return intersects(bl)||intersects(br)||intersects(tl)||intersects(tr);
 	}
 
 	@Override

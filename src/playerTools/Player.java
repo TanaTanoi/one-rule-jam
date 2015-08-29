@@ -125,7 +125,7 @@ public class Player {
 	public void draw(Graphics g, int canvasHeight, int canvasWidth){
 		g.setColor(Color.pink);
 		int boxSize = canvasHeight/10;
-		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize, boxSize, boxSize);
+		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize-1, boxSize, boxSize);
 		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
