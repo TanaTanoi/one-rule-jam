@@ -1,6 +1,7 @@
 package UI;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +16,8 @@ import Game.Game;
 public class GameFrame extends JFrame implements MouseListener, MouseMotionListener{
 	private GameCanvas canvas;
 	private Game game;
+	private boolean paused;
+	private boolean started;
 
 	public GameFrame(Game game) {
 		super("Grapplehook Game");
@@ -24,7 +27,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		add(canvas);
 		setBindings();
 		pack();
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);
 		this.game = game;
 	}
@@ -44,7 +47,9 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("pause needs implementing");
 				canvas.pause();
-			}
+				paused = !paused;
+				setResizable(paused);
+			}					
 		};
 
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");
@@ -54,6 +59,8 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		canvas.getActionMap().put("pause",pause);
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('p'), "pause");
 		canvas.getActionMap().put("pause",pause);
+		
+		System.out.println("riter");
 	}
 
 
@@ -61,12 +68,22 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
-
+		if (!started){
+			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
+				canvas.start();
+			}
+		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		System.out.println("mouse moved x: " + e.getX() + " y: " + e.getY());
+		if (!started){
+			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
+				canvas.startGlow();
+			}else{
+				canvas.stopGlow();
+			}
+		}
 	}
 
 

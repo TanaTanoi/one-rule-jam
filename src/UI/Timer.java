@@ -23,8 +23,8 @@ public class Timer extends Thread{
 	public void setTick(int tick){
 		this.tick = (long)tick;
 	}
-	
+
 	public void pause(){
-		paused = !paused;      
+		paused = !paused;
 	}
 }
