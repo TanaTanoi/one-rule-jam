@@ -24,13 +24,14 @@ public class GameCanvas extends JPanel{
 	private ArrayList<Cloud> clouds;
 	private boolean inTransition;
 	private boolean paused;
-	private boolean started;
+	private boolean started = true;
 	private boolean glow;
 	private int ticks;
 	private double transparency = 180;
 	private double transChange = 0.6;
 	private Point mousePos;
-
+	private String[] curRule;
+	private int ruleLength;
 	Game game;
 	public GameCanvas(Game game){
 		super();
@@ -43,6 +44,7 @@ public class GameCanvas extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
+		ruleLength = 13;
 		paintBackground(g);
 		drawClouds(g);
 		drawTracer((Graphics2D)g);
@@ -56,7 +58,7 @@ public class GameCanvas extends JPanel{
 		if (mousePos == null) return;
 		g.setStroke(new BasicStroke(3));
 		g.setPaint(new Color(255,0,0,200));
-		
+
 	}
 	public void setMousePos(Point p){
 		mousePos = p;
@@ -112,11 +114,13 @@ public class GameCanvas extends JPanel{
 		if (ticks > 3) g.drawString("THE", (getWidth()/5), (getHeight()/5)*2);
 		if (ticks > 6) g.drawString("ONE", (getWidth()/5)*2, (getHeight()/5)*2);
 		if (ticks > 9) g.drawString("RULE:", (getWidth()/5)*3, (getHeight()/5)*2);
-
-		if (ticks > 11) g.drawString("KILL", (getWidth()/5), (getHeight()/5)*3);
-		if (ticks > 12) g.drawString("ALL", (getWidth()/5)*2, (getHeight()/5)*3);
-		if (ticks > 13) g.drawString("HUMANS.", (getWidth()/5)*3, (getHeight()/5)*3);
-
+		int charsEntered = 0;
+		for (int i = 0; i < curRule.length;i++){
+			if (ticks > 11+i) {
+				g.drawString(curRule[i], (getWidth()/2)-(35*ruleLength/2)+(35*charsEntered), (getHeight()/5)*3);
+				charsEntered+=curRule[i].length();
+			}
+		}
 	}
 
 	private void drawClouds(Graphics g) {
@@ -156,13 +160,13 @@ public class GameCanvas extends JPanel{
 		}
 		repaint();
 		if (inTransition) {
-			if (ticks == 15) {
+			if (ticks == 18) {
 				tick.setTick(10);
 				inTransition=false;
 			}
 			else ticks++;
 		}
-		
+
 		if (transparency < 240 && transparency > 100)	transparency+=transChange;
 		else {
 			transChange*=-1;
@@ -170,7 +174,10 @@ public class GameCanvas extends JPanel{
 		}
 	}
 
-	public void transition(){
+	public void transition(String[] ruleString){
+		curRule = ruleString;
+		ruleLength = 0;
+		for(String s: curRule) ruleLength+=curRule.length; 
 		tick.setTick(200);
 		ticks = 0;
 		inTransition = true;

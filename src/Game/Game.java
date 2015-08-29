@@ -103,7 +103,7 @@ public class Game {
 		maps.peek().draw(g);
 		p.draw(g, canvasHeight, canvasWidth);
 		if(!currentMap.assessRule(p)){
-			throw new RuntimeException("YOU LOST");
+//			throw new RuntimeException("YOU LOST");
 		}
 		coin.draw(g);
 
