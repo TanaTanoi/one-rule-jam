@@ -44,7 +44,7 @@ public class BasicBlock extends Map {
 		g.fillPolygon(block);
 	}
 
-	private void calculatePolygons(int canvasWidth, int canvasHeight){
+	private void calculatePolygons(int canvasWidth, int canvasHeight){//TODO rewrite so that when it does resize, they stay same place
 		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
 		int[][] localPolyPoints = new int[4][4];
 		int[][] blockPoints = new int[2][4];
@@ -84,12 +84,7 @@ public class BasicBlock extends Map {
 	}
 	@Override
 	public boolean intersects(Point p) {
-		if(bottom.contains(p)){
-			return true;
-		}
-		System.out.println(block.getBounds().getMinY() + "   " + p.y);
-		System.out.println(block.getBounds().getMinX() + "    " + p.x);
-return false;
+		return bottom.contains(p)||block.contains(p);
 
 	}
 

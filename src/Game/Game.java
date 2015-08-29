@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -37,20 +38,25 @@ public class Game {
 		nextMap.translate(500, 0);
 		offerNextMap();
 		offerNextMap();
-		maps.peek().translate(1000,0);
+		maps.peek().translate(currentMap.getLength()+nextMap.getLength(),0);
 
 	}
 
-	public boolean intersectsCurrentMap(int x, int y){
+	public boolean intersectsCurrentMap(Rectangle rect, int y){
 		//System.out.println("Point is " + x + " " + y);
-		return currentMap.intersects(new Point(x,y));
+		if(currentMap.intersects(new Point((int) rect.getMinX(),y))){
+			return true;
+		}else if(currentMap.intersects(new Point((int) rect.getMaxX(),y))){
+			return true;
+		}
+		return false;
 	}
 
 	public void moveMaps(){
-		currentMap.translate(-distance, 0);
-		nextMap.translate(currentMap.getLength()-distance, 0);
-		maps.peek().translate(nextMap.getLength()+currentMap.getLength()-distance, 0);
-		distance+=speed;
+		currentMap.translate(-1, 0);
+		nextMap.translate(-1, 0);
+		maps.peek().translate(-1, 0);
+		distance++;
 		if(distance>=currentMap.getLength()){//if we are at the end of the map
 			currentMap = nextMap;
 			nextMap = maps.poll();
@@ -58,15 +64,15 @@ public class Game {
 			distance = 0;
 			offerNextMap();
 		}
-		/*if(currentMap.intersects(p.getBoundingBox())){
-			p.setLanded(currentMap.intersectY(p.getBoundingBox()));
-		}else{
-			p.setFalling();
-		}*/
 	}
-	public void resizeGame(int canvasWidth, int canvasHeight){
 
+
+	public void resizeGame(int canvasWidth, int canvasHeight){
+		this.canvasWidth = canvasWidth;
+		this.canvasHeight = canvasHeight;
 	}
+
+
 	public void drawMaps(Graphics g, int canvasWidth, int canvasHeight){
 		speed = canvasWidth/500;
 		moveMaps();

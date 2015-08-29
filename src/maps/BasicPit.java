@@ -65,8 +65,6 @@ public class BasicPit extends Map {
 	@Override
 	public boolean intersects(Rectangle rect) {
 
-		//return bottom.intersects(rect)||top.intersects(rect)||block.intersects(rect);
-		//return bottom.contains(rect.getMaxX())||bottom.contains(rect.getMinY())||bottom.contains(rect.getMaxY())||bottom.contains(rect.getMinX())||
 		Point bl = new Point((int)rect.getMinX(),(int)rect.getMaxY());
 		Point tl = new Point((int)rect.getMinX(),(int)rect.getMinY());
 		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());

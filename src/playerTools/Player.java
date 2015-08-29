@@ -120,7 +120,8 @@ public class Player {
 		if(isJumping){
 			int newPosY = Physics.moveJump(posX,posY,vertSpeed);
 			double newVertSpeed = Physics.fallSpeed(vertSpeed);
-			if (!game.intersectsCurrentMap(posX,boxSize*9-10-newPosY)){
+
+			if (!game.intersectsCurrentMap(boundingBox,boxSize*9-10-newPosY)){
 				posY = newPosY;
 				vertSpeed = newVertSpeed;
 			}else{//has collided
@@ -144,6 +145,7 @@ public class Player {
 			// grapple angle needs to change
 		}
 		else{
+
 			//Physics.moveRun(posX, posY);
 			// does nothing as the xposition is constant
 		}

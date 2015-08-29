@@ -26,8 +26,6 @@ public class BasicMap extends Map {
 		this.ruleString = ruleString;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
-		top = new Polygon(polyPoints[0],polyPoints[1],4);
-		bottom = new Polygon(polyPoints[2],polyPoints[3],4);
 		calculatePolygons(canvasWidth, canvasHeight);
 	}
 
