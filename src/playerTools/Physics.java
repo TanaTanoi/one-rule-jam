@@ -10,15 +10,15 @@ public class Physics {
 	private static double speedX = 1;
 
 	public static Point moveRun(int currentX, int currentY){
-		return new Point((int)(currentX + speedX*Timer.tickRate), currentY); // d = vt
+		return new Point((int)(currentX + speedX*Timer.tickRate/1000), currentY); // d = vt
 	}
 
 	public static double fallSpeed(double vertSpeed) {
-		return vertSpeed + gravity*Timer.tickRate; // vf = vi + at
+		return vertSpeed + gravity*Timer.tickRate/1000; // vf = vi + at
 	}
 
 	public static int moveJump(int currentX, int currentY, double vertSpeed) {
-		return (int)(vertSpeed*Timer.tickRate + 0.5*gravity*Timer.tickRate*Timer.tickRate); // d = vit + 1/2a(t*t)
+		return (int)(vertSpeed*Timer.tickRate/1000 + 0.5*gravity*Timer.tickRate/1000*Timer.tickRate/1000); // d = vit + 1/2a(t*t)
 	}
 
 	public static double calculateGrappleAngle(double currentX, double currentY,
@@ -35,9 +35,9 @@ public class Physics {
 	public static int movePullGrapple(int currentX, int currentY, double pullSpeed,
 			double grappleAngle) {
 
-		// calculates lengths of each side of triangel
-		double hypot = pullSpeed*Timer.tickRate;
-		double distX = speedX*Timer.tickRate;
+		// calculates lengths of each side of triangle
+		double hypot = pullSpeed*Timer.tickRate/1000;
+		double distX = speedX*Timer.tickRate/1000;
 		double distY = Math.sqrt(hypot*hypot - distX*distX);
 
 		return (int)(currentY+distY);

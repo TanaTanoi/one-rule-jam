@@ -50,16 +50,24 @@ public class Player {
 		return isJumping || isPullGrapple || isSwingGrapple;
 	}
 
+	public boolean isGrappling(){
+		return isPullGrapple || isSwingGrapple;
+	}
+
+	// Need to think about if they still are 'running' while the grapple hook is attaching
+
 	/**
 	 * Responsible for setting up grapple pulling motion
 	 */
 	public void pullGrapple(int x, int y){
-		double centreX = boundingBox.getCenterX();
-		double centreY = boundingBox.getCenterY();
+		if(!isGrappling()){
+			double centreX = boundingBox.getCenterX();
+			double centreY = boundingBox.getCenterY();
 
-		if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
-			grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
-			isPullGrapple = true;
+			if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
+				grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
+				isPullGrapple = true;
+			}
 		}
 	}
 
@@ -77,12 +85,14 @@ public class Player {
 	 * Responsible for setting up grapple swinging motion
 	 */
 	public void swingGrapple(int x, int y){
-		double centreX = boundingBox.getCenterX();
-		double centreY = boundingBox.getCenterY();
+		if(!isGrappling()){
+			double centreX = boundingBox.getCenterX();
+			double centreY = boundingBox.getCenterY();
 
-		if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
-			grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
-			isPullGrapple = true;
+			if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
+				grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
+				isPullGrapple = true;
+			}
 		}
 	}
 
@@ -92,6 +102,9 @@ public class Player {
 			vertSpeed = Physics.fallSpeed(vertSpeed);
 		}
 		else if(isPullGrapple){
+			// need a check in here to see whether to release the grapple hook
+			// at that point maybe it needs to be changed to isJumping so it falls,
+			// vertSpeed should be zero and not grappling anymore
 			posY = Physics.movePullGrapple(posX,posY,pullSpeed,grappleAngle);
 		}
 		else if(isSwingGrapple){
