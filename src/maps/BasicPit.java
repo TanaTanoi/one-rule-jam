@@ -19,13 +19,15 @@ public class BasicPit extends Map {
 	Polygon bottomA, bottomB, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,4,4},{10,9,9,10},{6,6,10,10},{10,9,9,10}};
-	public BasicPit(){
+	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,4,4},{10,9,9,10},{6,6,10,10},{10,8,8,10}};
+	public BasicPit(int canvasWidth, int canvasHeight){
+		super(canvasWidth,canvasHeight);
+
 		String[] ruleString = {"NO","RULE"};
 		this.ruleString = ruleString;
 
 		int rand = (int)(Math.random()*5)+1;
-		int[][] pitPoints = {{0,0,rand,rand},{10,9,9,10},{rand+3,rand+3,10,10},{10,9,9,10}};
+		int[][] pitPoints = {{0,0,rand,rand},{10,9,9,10},{rand+3,rand+3,10,10},{10,8,8,10}};
 		for(int i = 0;i<4;i++){
 			polyPoints[i+2]=pitPoints[i];
 		}
@@ -34,15 +36,15 @@ public class BasicPit extends Map {
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
 		bottomA = new Polygon(polyPoints[2],polyPoints[3],4);
 		bottomB = new Polygon(polyPoints[4],polyPoints[5],4);
+		calculatePolygons(canvasWidth, canvasHeight);
 	}
 
 	@Override
-	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
+	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillPolygon(top);
 		g.fillPolygon(bottomA);
 		g.fillPolygon(bottomB);
-		calculatePolygons(canvasWidth,canvasHeight);
 	}
 
 	private void calculatePolygons(int canvasWidth, int canvasHeight){
@@ -94,6 +96,12 @@ public class BasicPit extends Map {
 	public int intersectY(Rectangle rect) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void resize(int canvasWidth, int canvasHeight) {
+		calculatePolygons(canvasWidth, canvasHeight);
+
 	}
 
 

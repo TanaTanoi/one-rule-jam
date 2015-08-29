@@ -118,7 +118,6 @@ public class Player {
 
 	public void move(int canvasHeight){
 		if(isJumping){
-			System.out.println("Change jump");
 			int newPosY = Physics.moveJump(posX,posY,vertSpeed);
 			double newVertSpeed = Physics.fallSpeed(vertSpeed);
 			if (!game.intersectsCurrentMap(posX,boxSize*9-10-newPosY)){

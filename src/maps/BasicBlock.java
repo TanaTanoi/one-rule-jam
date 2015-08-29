@@ -21,7 +21,8 @@ public class BasicBlock extends Map {
 	//array 1,2 top x,y 3,4 bottom,x,y
 	private final int[][] polyPoints= {{0,0,15,15},{0,1,1,0},{0,0,15,15},{10,9,9,10}};
 	private final int[][] blockPoints;
-	public BasicBlock(){
+	public BasicBlock(int canvasWidth, int canvasHeight){
+		super(canvasWidth,canvasHeight);
 		String[] ruleString = {"NO","RULE"};
 		this.ruleString = ruleString;
 		int bHeight = randomNumber(6, 8);
@@ -32,15 +33,15 @@ public class BasicBlock extends Map {
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
 		bottom = new Polygon(polyPoints[2],polyPoints[3],4);
 		block = new Polygon(blockPoints[0],blockPoints[1],4);
+		calculatePolygons(canvasWidth, canvasHeight);
 	}
 
 	@Override
-	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
+	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillPolygon(top);
 		g.fillPolygon(bottom);
 		g.fillPolygon(block);
-		calculatePolygons(canvasWidth,canvasHeight);
 	}
 
 	private void calculatePolygons(int canvasWidth, int canvasHeight){
@@ -60,6 +61,7 @@ public class BasicBlock extends Map {
 		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
 		block = new Polygon(blockPoints[0],blockPoints[1],4);
 	}
+
 	@Override
 	public boolean intersects(Rectangle rect) {
 
@@ -82,7 +84,13 @@ public class BasicBlock extends Map {
 	}
 	@Override
 	public boolean intersects(Point p) {
-		return bottom.contains(p)||top.contains(p)||block.contains(p);
+		if(bottom.contains(p)){
+			return true;
+		}
+		System.out.println(block.getBounds().getMinY() + "   " + p.y);
+		System.out.println(block.getBounds().getMinX() + "    " + p.x);
+return false;
+
 	}
 
 	@Override
@@ -96,6 +104,13 @@ public class BasicBlock extends Map {
 	public boolean assessRule(Player p) {
 		//No Rule
 		return true;
+	}
+
+	@Override
+	public void resize(int canvasWidth, int canvasHeight) {
+		calculatePolygons(canvasWidth, canvasHeight);
+
+
 	}
 
 

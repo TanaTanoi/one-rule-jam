@@ -20,21 +20,22 @@ public class BasicMap extends Map {
 	//array 1,2 top x,y 3,4 bottom,x,y
 	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
 
-	public BasicMap(){
+	public BasicMap(int canvasWidth, int canvasHeight){
+		super(canvasWidth,canvasHeight);
 		String[] ruleString = {"NO","RULE"};
 		this.ruleString = ruleString;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
 		bottom = new Polygon(polyPoints[2],polyPoints[3],4);
+		calculatePolygons(canvasWidth, canvasHeight);
 	}
 
 	@Override
-	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
+	public void draw(Graphics g) {
 		g.setColor(color);
 		g.fillPolygon(top);
 		g.fillPolygon(bottom);
-		calculatePolygons(canvasWidth,canvasHeight);
 	}
 
 	private void calculatePolygons(int canvasWidth, int canvasHeight){
@@ -46,7 +47,6 @@ public class BasicMap extends Map {
 				if(i==3&&j==0){
 					length = localPolyPoints[j][i];
 				}
-
 			}
 		}
 		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
@@ -86,6 +86,12 @@ public class BasicMap extends Map {
 			return (int)top.getBounds().getMaxY();
 		}
 		return 0;*/
+	}
+
+	@Override
+	public void resize(int canvasWidth, int canvasHeight) {
+		calculatePolygons(canvasWidth,canvasHeight);
+
 	}
 
 

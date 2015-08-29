@@ -15,6 +15,13 @@ public abstract class Map {
 	public int getLength(){return length;}
 	String[] ruleString;
 	public String[] getRule(){return ruleString;}
+	int canvasWidth, canvasHeight;
+	public Map(int canvasWidth,int canvasHeight){
+		this.canvasWidth = canvasWidth;
+		this.canvasHeight = canvasHeight;
+	}
+
+
 	/**
 	 * Draws the Map onto the graphics pane using the canvas width and height
 	 * as references to allow it to be resizeable and scalable.
@@ -22,7 +29,7 @@ public abstract class Map {
 	 * @param canvasWidth
 	 * @param canvasHeight
 	 */
-	abstract public void draw(Graphics g,int canvasWidth, int canvasHeight);
+	abstract public void draw(Graphics g);
 
 	/**
 	 * Asks the map if the given polygon intercepts the collision boxes
@@ -48,6 +55,8 @@ public abstract class Map {
 	 * @return - true if they are obeying
 	 */
 	abstract public boolean assessRule(Player p);
+
+	abstract public void resize(int canvasWidth, int canvasHeight);
 
 	/**
 	 * Moves this map by the given delta x,y.
