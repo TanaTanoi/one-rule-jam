@@ -98,6 +98,11 @@ public class Player {
 				return true;
 			}
 		}
+		else if (isPullGrapple){
+			isPullGrapple = false;
+			vertSpeed = 0;
+			isJumping = true;
+		}
 		return false;
 	}
 
