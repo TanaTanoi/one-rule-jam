@@ -60,11 +60,12 @@ public class Player {
 
 	public void setFalling(){
 		isJumping = true;
-		vertSpeed = 0;
 	}
 
-	public void setLanded(){
+	public void setLanded(int posY){
 		isJumping = false;
+		vertSpeed = 0;
+		this.posY = 450-posY;
 	}
 
 	// Need to think about if they still are 'running' while the grapple hook is attaching
@@ -115,8 +116,8 @@ public class Player {
 			vertSpeed = Physics.fallSpeed(vertSpeed);
 			System.out.println(posY);
 			if(posY <= 0){
-				System.out.println("OMG");
-				posY = 0;
+				//System.out.println("OMG");
+				//posY = 0;
 				isJumping = false;
 			}
 

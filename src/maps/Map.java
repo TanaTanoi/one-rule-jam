@@ -32,6 +32,8 @@ public abstract class Map {
 	 */
 	abstract public boolean intersects(Rectangle rect);
 
+	abstract public int intersectY(Rectangle rect);
+
 	/**
 	 * Asks the map if the given point intercepts the
 	 * collision boxes of the map

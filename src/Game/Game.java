@@ -2,13 +2,14 @@ package Game;
 
 import java.awt.Graphics;
 import java.util.ArrayDeque;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 import playerTools.Player;
 import maps.*;
 
 public class Game {
+
+	public static final int TOTAL_MAPS = 3;
 
 	int distance = 0;
 	int speed = 1;
@@ -25,19 +26,12 @@ public class Game {
 	}
 	public Game(){
 		p = new Player();
-		maps.offer(new BasicMap());
-		maps.offer(new BasicBlock());
-		maps.offer(new BasicMap());
-		maps.offer(new BasicBlock());
-		maps.offer(new BasicMap());
-		maps.offer(new BasicMap());
-		maps.offer(new BasicMap());
-
 		currentMap = new BasicMap();
 		nextMap = new BasicBlock();
-		//nextMap.translate(currentMap.getLength(), 0);
 		nextMap.translate(500, 0);
-		maps.peek().translate(1000,0);//500+nextMap.getLength(), 0);
+		offerNextMap();
+		offerNextMap();
+		maps.peek().translate(1000,0);
 
 	}
 
@@ -51,10 +45,13 @@ public class Game {
 			nextMap = maps.poll();
 			maps.peek().translate(currentMap.getLength()+nextMap.getLength(), 0);
 			distance = 0;
-			maps.offer(new BasicMap());
+			offerNextMap();
 		}
 		if(currentMap.intersects(p.getBoundingBox())){
-			//System.out.println("INTERSECTING");
+			System.out.println("Collide");
+			p.setLanded(currentMap.intersectY(p.getBoundingBox()));
+		}else{
+			p.setFalling();
 		}
 	}
 
@@ -65,5 +62,20 @@ public class Game {
 		nextMap.draw(g, canvasWidth, canvasHeight);
 		maps.peek().draw(g, canvasWidth, canvasHeight);
 		p.draw(g, canvasHeight, canvasWidth);
+	}
+
+	public void offerNextMap(){
+		int i = (int)(Math.random()*TOTAL_MAPS);
+		switch(i){
+		case 0:
+			maps.offer(new BasicMap());
+			break;
+		case 1:
+			maps.offer(new BasicBlock());
+			break;
+		case 2:
+			maps.offer(new BasicPit());
+			break;
+		}
 	}
 }

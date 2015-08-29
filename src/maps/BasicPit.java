@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 
 import playerTools.Player;
 
@@ -13,48 +14,57 @@ import playerTools.Player;
  * @author Tana
  *
  */
-public class BasicMap extends Map {
+public class BasicPit extends Map {
 
-	Polygon bottom, top;
+	Polygon bottomA, bottomB, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
-
-	public BasicMap(){
+	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,4,4},{10,9,9,10},{6,6,10,10},{10,9,9,10}};
+	public BasicPit(){
 		String[] ruleString = {"NO","RULE"};
 		this.ruleString = ruleString;
+
+		int rand = (int)(Math.random()*5)+1;
+		int[][] pitPoints = {{0,0,rand,rand},{10,9,9,10},{rand+3,rand+3,10,10},{10,9,9,10}};
+		for(int i = 0;i<4;i++){
+			polyPoints[i+2]=pitPoints[i];
+		}
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
-		bottom = new Polygon(polyPoints[2],polyPoints[3],4);
+		bottomA = new Polygon(polyPoints[2],polyPoints[3],4);
+		bottomB = new Polygon(polyPoints[4],polyPoints[5],4);
 	}
 
 	@Override
 	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
 		g.setColor(color);
 		g.fillPolygon(top);
-		g.fillPolygon(bottom);
+		g.fillPolygon(bottomA);
+		g.fillPolygon(bottomB);
 		calculatePolygons(canvasWidth,canvasHeight);
 	}
 
 	private void calculatePolygons(int canvasWidth, int canvasHeight){
 		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
-		int[][] localPolyPoints = new int[4][4];
-		for(int j = 0; j < 4; j++){
+		int[][] localPolyPoints = new int[6][4];
+		for(int j = 0; j < 6; j++){
 			for(int i = 0;i<4;i++){
 				localPolyPoints[j][i] = polyPoints[j][i]*boxSize;
 				if(i==3&&j==0){
 					length = localPolyPoints[j][i];
 				}
-				System.out.println(localPolyPoints[j][i]);
-
 			}
 		}
 		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
-		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
+		bottomA = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
+		bottomB = new Polygon(localPolyPoints[4],localPolyPoints[5],4);
 	}
 	@Override
 	public boolean intersects(Rectangle rect) {
+
+		//return bottom.intersects(rect)||top.intersects(rect)||block.intersects(rect);
+		//return bottom.contains(rect.getMaxX())||bottom.contains(rect.getMinY())||bottom.contains(rect.getMaxY())||bottom.contains(rect.getMinX())||
 		Point bl = new Point((int)rect.getMinX(),(int)rect.getMaxY());
 		Point tl = new Point((int)rect.getMinX(),(int)rect.getMinY());
 		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());
@@ -64,13 +74,14 @@ public class BasicMap extends Map {
 
 	@Override
 	public boolean intersects(Point p) {
-		return bottom.contains(p)||top.contains(p);
+		return bottomA.contains(p)||top.contains(p)||bottomB.contains(p);
 	}
 
 	@Override
 	public void translate(int deltaX, int deltaY) {
-		bottom.translate(deltaX, deltaY);
+		bottomA.translate(deltaX, deltaY);
 		top.translate(deltaX, deltaY);
+		bottomB.translate(deltaX,deltaY);
 	}
 
 	@Override
@@ -81,12 +92,8 @@ public class BasicMap extends Map {
 
 	@Override
 	public int intersectY(Rectangle rect) {
-		//if(bottom.intersects(rect)){
-		return (int)bottom.getBounds().getMinY();
-		/*}else if(top.intersects(rect)){
-			return (int)top.getBounds().getMaxY();
-		}
-		return 0;*/
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
