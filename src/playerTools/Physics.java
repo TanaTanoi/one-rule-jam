@@ -39,7 +39,8 @@ public class Physics {
 		double hypot = pullSpeed*Timer.tickRate/1000;
 		double distX = speedX*Timer.tickRate/1000;
 		double distY = Math.sqrt(hypot*hypot - distX*distX);
+		System.out.println(hypot + " " + distX + " " + distY);
 
-		return (int)(currentY+distY);
+		return (int)(currentY+distY*100);
 	}
 }
