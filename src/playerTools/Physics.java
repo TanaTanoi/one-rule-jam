@@ -56,7 +56,7 @@ public class Physics {
 		System.out.println("Canvas height " + canvasHeight);
 		System.out.println("RoofHeight " + roofHeight);
 
-		return (int)(canvasHeight - 2*roofHeight - yLength)/2;
+		return (int)(canvasHeight - 2*roofHeight - yLength);
 	}
 
 

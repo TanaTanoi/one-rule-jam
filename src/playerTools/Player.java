@@ -168,7 +168,7 @@ public class Player {
 			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, canvasHeight, swingLength, boxSize);
 			System.out.println("Swing move " + posY);
 
-			if(grappleX <= 0){
+			if(grappleX <= 0 || posY >= boxSize*6){
 				vertSpeed = 0;
 				isSwingGrapple = false;
 				isJumping = true;
