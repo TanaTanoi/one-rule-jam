@@ -14,12 +14,14 @@ import sun.audio.*;
 public class SoundFrame extends JFrame implements MouseListener{
 
 	Clip whooshClip;
+	Clip backGround;
 
 	public SoundFrame(){
 		setSize(200,200);
 		setVisible(true);
 		addMouseListener(this);
 		setUpSound();
+		startMusic();
 	}
 
 	public static void whooshSound(){
@@ -42,12 +44,26 @@ public class SoundFrame extends JFrame implements MouseListener{
 		  } catch (Exception e) {
 		   System.err.println(e.getMessage());
 		  }
+		  System.out.println("Done whoosh");
+		  try {
+			   File file = new File("Luna.mp3");
+			   backGround = AudioSystem.getClip();
+			   backGround.open(AudioSystem.getAudioInputStream(file));
+			  } catch (Exception e) {
+			   System.err.println(e.getMessage());
+			  }
 
 		 }
 
 	public void play(){
 		whooshClip.setFramePosition(0);
 		whooshClip.start();
+	}
+
+
+	private void startMusic() {
+		backGround.loop(Clip.LOOP_CONTINUOUSLY);
+		backGround.start();
 	}
 
 

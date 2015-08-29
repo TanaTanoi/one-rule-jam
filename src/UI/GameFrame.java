@@ -25,6 +25,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	// Sound clips
 	Clip whooshClip;
 	Clip jumpClip;
+	Clip backGround;
 
 	public GameFrame(Game game) {
 		super("Grapplehook Game");
@@ -38,6 +39,12 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		setVisible(true);
 		this.game = game;
 		setUpSound();
+		startMusic();
+	}
+
+	private void startMusic() {
+		backGround.loop(Clip.LOOP_CONTINUOUSLY);
+		backGround.start();
 	}
 
 	private void setBindings() {
@@ -135,6 +142,15 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			System.err.println(e.getMessage());
 		}
 
+		// Sets up background music
+		try {
+			File file = new File("Luna.mp3");
+			backGround = AudioSystem.getClip();
+			backGround.open(AudioSystem.getAudioInputStream(file));
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 	public void playWhoosh(){
@@ -165,7 +181,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	public void mouseClicked(MouseEvent e) {
 		System.out.println(started);
 		if (started){
-//			play();
+			//			play();
 			if(e.getButton() == e.BUTTON1){
 				boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
 				if(grapple){
