@@ -38,8 +38,10 @@ public class BasicBlock extends Map {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(color);
+		g.setColor(Color.black);
 		g.fillPolygon(top);
+		g.setColor(color);
+
 		g.fillPolygon(bottom);
 		g.fillPolygon(block);
 	}
