@@ -77,15 +77,18 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		boolean swingGrapple = game.playerSwingGrapple(e.getX(),e.getY());
-		if(swingGrapple){
-			//playWhoosh();
+		if(e.getButton() == e.BUTTON3){
+			System.out.println("GRAPPLE TIME");
+			boolean swingGrapple = game.playerSwingGrapple(e.getX(),e.getY());
+			if(swingGrapple){
+				//playWhoosh();
+			}
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
+		//System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
 		if (!started){
 			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
 				canvas.start();
@@ -154,9 +157,11 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
-		if(grapple){
-			playWhoosh();
+		if(e.getButton() == e.BUTTON1){
+			boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
+			if(grapple){
+				playWhoosh();
+			}
 		}
 	}
 

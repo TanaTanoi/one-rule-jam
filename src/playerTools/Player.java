@@ -126,7 +126,7 @@ public class Player {
 				//grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
 				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, x);
 				swingLength = Physics.calculateSwingRopeLength(centreX,centreY,grappleX,boxSize);
-				isPullGrapple = true;
+				isSwingGrapple = true;
 				return true;
 			}
 		}
@@ -198,7 +198,9 @@ public class Player {
 			grappleX--;
 		}
 		else if(isSwingGrapple){
-
+			g.setColor(Color.YELLOW);
+			g.drawLine((int)boundingBox.getCenterX(), (int)boundingBox.getCenterY(), grappleX, boxSize);
+			grappleX--;
 		}
 		else{
 
