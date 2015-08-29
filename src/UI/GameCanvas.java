@@ -24,7 +24,7 @@ public class GameCanvas extends JPanel{
 	private ArrayList<Cloud> clouds;
 	private boolean inTransition;
 	private boolean paused;
-	private boolean started = true;
+	private boolean started;
 	private boolean glow;
 	private int ticks;
 	private double transparency = 180;

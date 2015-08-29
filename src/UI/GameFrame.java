@@ -102,12 +102,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 				game.playerSetFalling();
 			}
 		}
-		else{
-			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
-				canvas.start();
-				started = true;
-			}
-		}
 	}
 
 	@Override
