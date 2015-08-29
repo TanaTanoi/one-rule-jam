@@ -30,6 +30,7 @@ public class Player {
 	private double grappleAngle;
 	private double pullSpeed;
 	private int grappleX;
+	private int swingLength;
 
 	// Player actions
 	private boolean isJumping;
@@ -66,6 +67,8 @@ public class Player {
 	}
 
 	public void setFalling(){
+		isPullGrapple = false;
+		isSwingGrapple = false;
 		isJumping = true;
 	}
 
@@ -112,20 +115,25 @@ public class Player {
 
 	/**
 	 * Responsible for setting up grapple swinging motion
+	 * @return
 	 */
-	public void swingGrapple(int x, int y){
+	public boolean swingGrapple(int x, int y){
 		if(!isGrappling()){
 			double centreX = boundingBox.getCenterX();
 			double centreY = boundingBox.getCenterY();
 
 			if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
-				grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
+				//grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
+				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, x);
+				swingLength = Physics.calculateSwingRopeLength(centreX,centreY,grappleX,boxSize);
 				isPullGrapple = true;
+				return true;
 			}
 		}
+		return false;
 	}
 
-	public void move(int canvasHeight){
+	public void move(int canvasHeight, int canvasWidth){
 		if(isJumping){
 			int newPosY = Physics.moveJump(posX,posY,vertSpeed);
 			double newVertSpeed = Physics.fallSpeed(vertSpeed);
@@ -149,12 +157,13 @@ public class Player {
 			// vertSpeed should be zero and not grappling anymore
 			posY = Physics.movePullGrapple(posX,posY,pullSpeed,grappleAngle);
 			if(posY > 6*boxSize || grappleX <= boxSize/2){
+				vertSpeed = 0;
 				isPullGrapple = false;
 				isJumping = true;
 			}
 		}
 		else if(isSwingGrapple){
-			// grapple angle needs to change
+			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, swingLength, boxSize*7);
 		}
 		else{
 
@@ -178,7 +187,7 @@ public class Player {
 		boxSize = canvasHeight/10;
 		boundingBox = new Rectangle(boxSize/2, boxSize*8-10 - posY, boxSize, boxSize);
 		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
-		move(canvasHeight);
+		move(canvasHeight, canvasWidth);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
 

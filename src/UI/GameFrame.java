@@ -50,7 +50,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 				if(success){
 					playJump();
 				}
-			
+
 			}
 		};
 
@@ -75,7 +75,13 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		System.out.println("riter");
 	}
 
-
+	@Override
+	public void mousePressed(MouseEvent e) {
+		boolean swingGrapple = game.playerSwingGrapple(e.getX(),e.getY());
+		if(swingGrapple){
+			//playWhoosh();
+		}
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -84,6 +90,9 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
 				canvas.start();
 			}
+		}
+		else{
+			game.playerSetFalling();
 		}
 	}
 
@@ -107,7 +116,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		
+
 		// Sets up jump sound
 		try {
 			File file = new File("Jump.wav");
@@ -123,7 +132,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		whooshClip.setFramePosition(0);
 		whooshClip.start();
 	}
-	
+
 	public void playJump(){
 		jumpClip.setFramePosition(0);
 		jumpClip.start();
@@ -151,9 +160,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		}
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {}
-	/*
-	 * METHODS THAT WON'T BE IMPLEMENTED
-	 */
+
+
 }

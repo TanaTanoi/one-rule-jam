@@ -44,10 +44,28 @@ public class Physics {
 		return (int)(currentY+distY*100);
 	}
 
+	public static int moveSwingGrapple(int currentY, int grappleX, int canvasWidth, int swingLength, int roofHeight) {
+
+		double xLength = Math.abs(grappleX - canvasWidth/2);
+		double yLength = Math.sqrt(swingLength*swingLength - xLength*xLength);
+
+		return (int)yLength + roofHeight;
+	}
+
+
 	public static int calculateConnectPoint(double centreX, double centreY,
 			int x, int y, int boxSize) {
 		double grad = (y - centreY)/(x - centreX);
 		double newX = (y - centreY)/grad + centreX;
 		return (int)newX;
+	}
+
+	public static int calculateSwingRopeLength(double centreX, double centreY,
+			int grappleX, int grappleY) {
+
+		double xLength = centreX - grappleX;
+		double yLength = centreY - grappleY;
+
+		return (int)Math.sqrt(xLength*xLength + yLength*yLength);
 	}
 }

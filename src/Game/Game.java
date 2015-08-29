@@ -20,7 +20,7 @@ public class Game {
 	private Map nextMap;
 	private Player p;
 	int canvasHeight = 500 ,canvasWidth= 500;
-	
+
 	public boolean playerJump(){
 		return p.jump();
 	}
@@ -102,5 +102,13 @@ public class Game {
 			maps.offer(new DontTouchGround(canvasWidth,canvasHeight));
 			break;
 		}
+	}
+
+	public boolean playerSwingGrapple(int x, int y) {
+		return p.swingGrapple(x, y);
+	}
+
+	public void playerSetFalling() {
+		p.setFalling();
 	}
 }
