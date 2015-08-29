@@ -92,10 +92,15 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		if (!started){
 			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
 				canvas.start();
+				started = true;
 			}
 		}
 		else{
-			game.playerSetFalling();
+
+			System.out.println("Stop swuing");
+			if(e.getButton() == e.BUTTON3){
+				game.playerSetFalling();
+			}
 		}
 	}
 

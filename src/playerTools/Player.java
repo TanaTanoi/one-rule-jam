@@ -127,6 +127,7 @@ public class Player {
 				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, x);
 				swingLength = Physics.calculateSwingRopeLength(centreX,centreY,grappleX,boxSize);
 				isSwingGrapple = true;
+				isJumping = false;
 				System.out.println("Actaully grappling");
 				return true;
 			}
