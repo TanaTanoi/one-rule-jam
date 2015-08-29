@@ -12,7 +12,7 @@ public class Cloud {
 	double speed;
 	int[][] cloudSegments;
 	public Cloud(){
-		speed = Math.random();
+		speed = Math.random()*0.5;
 		top = Math.random()*300;
 		left = 1000;
 		spawnSegments();

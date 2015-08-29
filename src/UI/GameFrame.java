@@ -43,7 +43,8 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("pause needs implementing");
-			}
+				canvas.pause();
+			}					
 		};
 
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");

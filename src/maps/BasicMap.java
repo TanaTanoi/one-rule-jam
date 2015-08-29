@@ -46,6 +46,8 @@ public class BasicMap extends Map {
 				if(i==3&&j==0){
 					length = localPolyPoints[j][i];
 				}
+				System.out.println(localPolyPoints[j][i]);
+
 			}
 		}
 		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
