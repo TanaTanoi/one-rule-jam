@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -25,7 +26,7 @@ public class Game {
 		return currentMap.getRule();
 	}
 	public Game(){
-		p = new Player();
+		p = new Player(this);
 		currentMap = new BasicMap();
 		nextMap = new BasicBlock();
 		nextMap.translate(500, 0);
@@ -33,6 +34,11 @@ public class Game {
 		offerNextMap();
 		maps.peek().translate(1000,0);
 
+	}
+
+	public boolean intersectsCurrentMap(int x, int y){
+		System.out.println("Point is " + x + " " + y);
+		return currentMap.intersects(new Point(x,y));
 	}
 
 	public void moveMaps(){
@@ -47,12 +53,11 @@ public class Game {
 			distance = 0;
 			offerNextMap();
 		}
-		if(currentMap.intersects(p.getBoundingBox())){
-			System.out.println("Collide");
+		/*if(currentMap.intersects(p.getBoundingBox())){
 			p.setLanded(currentMap.intersectY(p.getBoundingBox()));
 		}else{
 			p.setFalling();
-		}
+		}*/
 	}
 
 	public void drawMaps(Graphics g, int canvasWidth, int canvasHeight){

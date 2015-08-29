@@ -7,6 +7,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 
+import Game.Game;
+
 public class Player {
 
 	// Player positions and dimension
@@ -33,7 +35,11 @@ public class Player {
 	private boolean isPullGrapple;
 	private boolean isSwingGrapple;
 
-	public Player(){
+	private Game game;
+
+
+	public Player(Game game){
+		this.game = game;
 		width = 40;
 		height = 40;
 	}
@@ -112,14 +118,21 @@ public class Player {
 
 	public void move(int canvasHeight){
 		if(isJumping){
-			posY = Physics.moveJump(posX,posY,vertSpeed);
-			vertSpeed = Physics.fallSpeed(vertSpeed);
-			System.out.println(posY);
-			if(posY <= 0){
+			System.out.println("Change jump");
+			int newPosY = Physics.moveJump(posX,posY,vertSpeed);
+			double newVertSpeed = Physics.fallSpeed(vertSpeed);
+			if (!game.intersectsCurrentMap(posX,boxSize*9-10-newPosY)){
+				posY = newPosY;
+				vertSpeed = newVertSpeed;
+			}else{//has collided
+				System.out.println("No longer jumping");
+				isJumping = false;
+			}
+			/*if(posY <= 0){
 				//System.out.println("OMG");
 				//posY = 0;
 				isJumping = false;
-			}
+			}*/
 
 		}
 		else if(isPullGrapple){
@@ -143,7 +156,7 @@ public class Player {
 	public void draw(Graphics g, int canvasHeight, int canvasWidth){
 		g.setColor(Color.pink);
 		boxSize = canvasHeight/10;
-		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize-1 - posY, boxSize, boxSize);
+		boundingBox = new Rectangle(boxSize/2, boxSize*8-10 - posY, boxSize, boxSize);
 		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
 		move(canvasHeight);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
