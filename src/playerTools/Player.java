@@ -103,6 +103,7 @@ public class Player {
 		if(isJumping){
 			posY = Physics.moveJump(posX,posY,vertSpeed);
 			vertSpeed = Physics.fallSpeed(vertSpeed);
+			System.out.println(posY);
 		}
 		else if(isPullGrapple){
 			// need a check in here to see whether to release the grapple hook
