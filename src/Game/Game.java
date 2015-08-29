@@ -12,10 +12,15 @@ public class Game {
 
 	int distance = 0;
 	int speed = 1;
-	Queue<Map> maps = new ArrayDeque<Map>();
-	Map currentMap;
-	Map nextMap;
-	Player p;
+	private Queue<Map> maps = new ArrayDeque<Map>();
+	private Map currentMap;
+	private Map nextMap;
+	private Player p;
+
+	public void playerJump(){
+		p.jump();
+	}
+
 	public Game(){
 		p = new Player();
 		maps.offer(new BasicMap());
@@ -54,7 +59,6 @@ public class Game {
 	public void drawMaps(Graphics g, int canvasWidth, int canvasHeight){
 		speed = canvasWidth/500;
 		moveMaps();
-
 		currentMap.draw(g, canvasWidth, canvasHeight);
 		nextMap.draw(g, canvasWidth, canvasHeight);
 		maps.peek().draw(g, canvasWidth, canvasHeight);

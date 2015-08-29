@@ -22,7 +22,8 @@ public class BasicBlock extends Map {
 	private final int[][] polyPoints= {{0,0,15,15},{0,1,1,0},{0,0,15,15},{10,9,9,10}};
 	private final int[][] blockPoints;
 	public BasicBlock(){
-		ruleString = "NO RULE";
+		String[] ruleString = {"NO","RULE"};
+		this.ruleString = ruleString;
 		int bHeight = randomNumber(6, 8);
 		int[][] blockPoints = {{4,4,7,7},{9,bHeight,bHeight,9}};
 		this.blockPoints = blockPoints;
@@ -69,7 +70,6 @@ public class BasicBlock extends Map {
 		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());
 		Point tr = new Point((int)rect.getMaxX(),(int)rect.getMinY());
 		Line2D frl = new Line2D.Double(tr,br);
-		Point fr = new Point(rect.x+rect.width,rect.y+rect.height);
 		//if(block.getBounds().contains(fr)){
 		if(block.getBounds().intersectsLine(frl)){
 			System.out.println("TEST");

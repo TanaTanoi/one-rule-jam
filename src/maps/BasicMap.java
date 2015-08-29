@@ -21,7 +21,8 @@ public class BasicMap extends Map {
 	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
 
 	public BasicMap(){
-		ruleString = "NO RULE";
+		String[] ruleString = {"NO","RULE"};
+		this.ruleString = ruleString;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
