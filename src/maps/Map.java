@@ -56,4 +56,7 @@ public abstract class Map {
 	protected int getDrawBoxSize(int canvasWidth, int canvasHeight){
 		return canvasHeight/BOX_SIZE;
 	}
+	protected int randomNumber(int low,int high){
+		return (int)(Math.random()*(high-low+1))+low;
+	}
 }

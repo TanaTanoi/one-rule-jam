@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import playerTools.Player;
 import maps.*;
 
 public class Game {
@@ -14,8 +15,9 @@ public class Game {
 	Queue<Map> maps = new ArrayDeque<Map>();
 	Map currentMap;
 	Map nextMap;
+	Player p;
 	public Game(){
-
+		p = new Player();
 		maps.offer(new BasicMap());
 		maps.offer(new BasicBlock());
 		maps.offer(new BasicMap());
@@ -44,6 +46,9 @@ public class Game {
 			distance = 0;
 			maps.offer(new BasicMap());
 		}
+		/*if(currentMap.intersects(p.getBoundingBox())){
+			System.out.println("INTERSECTING");
+		}*/
 	}
 
 	public void drawMaps(Graphics g, int canvasWidth, int canvasHeight){

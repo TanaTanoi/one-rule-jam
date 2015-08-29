@@ -18,9 +18,12 @@ public class BasicBlock extends Map {
 	Polygon bottom, top, block;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
-	private final int[][] blockPoints = {{4,4,7,7},{9,8,8,9}};
+	private final int[][] polyPoints= {{0,0,15,15},{0,1,1,0},{0,0,15,15},{10,9,9,10}};
+	private final int[][] blockPoints;
 	public BasicBlock(){
+		int bHeight = randomNumber(6, 8);
+		int[][] blockPoints = {{4,4,7,7},{9,bHeight,bHeight,9}};
+		this.blockPoints = blockPoints;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
@@ -32,7 +35,6 @@ public class BasicBlock extends Map {
 	public void draw(Graphics g, int canvasWidth, int canvasHeight) {
 		g.setColor(color);
 		g.fillPolygon(top);
-		g.setColor(Color.black);
 		g.fillPolygon(bottom);
 		g.fillPolygon(block);
 		calculatePolygons(canvasWidth,canvasHeight);
