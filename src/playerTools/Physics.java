@@ -43,4 +43,10 @@ public class Physics {
 
 		return (int)(currentY+distY*100);
 	}
+
+	public static int calculateConnectPoint(double centreX, double centreY,
+			int x, int y) {
+		int grad = (centreY - )
+		return 0;
+	}
 }
