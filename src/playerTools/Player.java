@@ -58,6 +58,15 @@ public class Player {
 		return isPullGrapple || isSwingGrapple;
 	}
 
+	public void setFalling(){
+		isJumping = true;
+		vertSpeed = 0;
+	}
+
+	public void setLanded(){
+		isJumping = false;
+	}
+
 	// Need to think about if they still are 'running' while the grapple hook is attaching
 
 	/**
