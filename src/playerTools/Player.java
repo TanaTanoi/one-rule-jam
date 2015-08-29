@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 
 public class Player {
 
@@ -13,7 +14,7 @@ public class Player {
 	private int posY;
 	private int width;
 	private int height;
-	private Rectangle boundingBox;
+	private Rectangle boundingBox = new Rectangle(new Point(0,0));
 
 	// Player images
 	private Image[] runImages;
@@ -123,8 +124,10 @@ public class Player {
 
 	public void draw(Graphics g, int canvasHeight, int canvasWidth){
 		g.setColor(Color.pink);
-		int boxSize = 10/canvasHeight;
-		g.drawRect(canvasWidth/2 - boxSize/2, boxSize*9 - boxSize, boxSize, boxSize);
+		int boxSize = canvasHeight/10;
+		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize, boxSize, boxSize);
+		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
+		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
 
 		}

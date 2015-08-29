@@ -21,6 +21,7 @@ public class BasicMap extends Map {
 	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
 
 	public BasicMap(){
+		ruleString = "NO RULE";
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
@@ -51,7 +52,12 @@ public class BasicMap extends Map {
 	}
 	@Override
 	public boolean intersects(Rectangle rect) {
-		return bottom.intersects(rect)||top.intersects(rect);
+		Point bl = new Point((int)rect.getMinX(),(int)rect.getMaxY());
+		Point tl = new Point((int)rect.getMinX(),(int)rect.getMinY());
+		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());
+		Point tr = new Point((int)rect.getMaxX(),(int)rect.getMinY());
+		return bottom.contains(bl)||bottom.contains(tl)||bottom.contains(br)||bottom.contains(tr)||
+				top.contains(bl)||top.contains(tl)||top.contains(br)||top.contains(tr);
 	}
 
 	@Override

@@ -12,7 +12,8 @@ public abstract class Map {
 	//The length of this segment of map
 	int length;
 	public int getLength(){return length;}
-
+	String ruleString;
+	public String getRule(){return ruleString;}
 	/**
 	 * Draws the Map onto the graphics pane using the canvas width and height
 	 * as references to allow it to be resizeable and scalable.

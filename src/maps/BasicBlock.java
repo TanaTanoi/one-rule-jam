@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
+import java.awt.geom.Line2D;
 
 import playerTools.Player;
 
@@ -21,6 +22,7 @@ public class BasicBlock extends Map {
 	private final int[][] polyPoints= {{0,0,15,15},{0,1,1,0},{0,0,15,15},{10,9,9,10}};
 	private final int[][] blockPoints;
 	public BasicBlock(){
+		ruleString = "NO RULE";
 		int bHeight = randomNumber(6, 8);
 		int[][] blockPoints = {{4,4,7,7},{9,bHeight,bHeight,9}};
 		this.blockPoints = blockPoints;
@@ -59,7 +61,23 @@ public class BasicBlock extends Map {
 	}
 	@Override
 	public boolean intersects(Rectangle rect) {
-		return bottom.intersects(rect)||top.intersects(rect)||block.intersects(rect);
+
+		//return bottom.intersects(rect)||top.intersects(rect)||block.intersects(rect);
+		//return bottom.contains(rect.getMaxX())||bottom.contains(rect.getMinY())||bottom.contains(rect.getMaxY())||bottom.contains(rect.getMinX())||
+		Point bl = new Point((int)rect.getMinX(),(int)rect.getMaxY());
+		Point tl = new Point((int)rect.getMinX(),(int)rect.getMinY());
+		Point br = new Point((int)rect.getMaxX(),(int)rect.getMaxY());
+		Point tr = new Point((int)rect.getMaxX(),(int)rect.getMinY());
+		Line2D frl = new Line2D.Double(tr,br);
+		Point fr = new Point(rect.x+rect.width,rect.y+rect.height);
+		//if(block.getBounds().contains(fr)){
+		if(block.getBounds().intersectsLine(frl)){
+			System.out.println("TEST");
+			System.exit(0);
+		}
+		return bottom.contains(bl)||bottom.contains(tl)||bottom.contains(br)||bottom.contains(tr)||
+				top.contains(bl)||top.contains(tl)||top.contains(br)||top.contains(tr)||
+				block.contains(bl)||block.contains(tl)||block.contains(br)||block.contains(tr);
 	}
 
 	@Override

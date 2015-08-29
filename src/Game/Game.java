@@ -38,7 +38,7 @@ public class Game {
 		currentMap.translate(-distance, 0);
 		nextMap.translate(currentMap.getLength()-distance, 0);
 		maps.peek().translate(nextMap.getLength()+currentMap.getLength()-distance, 0);
-		distance+=1;
+		distance+=speed;
 		if(distance>=currentMap.getLength()){//if we are at the end of the map
 			currentMap = nextMap;
 			nextMap = maps.poll();
@@ -46,16 +46,18 @@ public class Game {
 			distance = 0;
 			maps.offer(new BasicMap());
 		}
-		/*if(currentMap.intersects(p.getBoundingBox())){
-			System.out.println("INTERSECTING");
-		}*/
+		if(currentMap.intersects(p.getBoundingBox())){
+			//System.out.println("INTERSECTING");
+		}
 	}
 
 	public void drawMaps(Graphics g, int canvasWidth, int canvasHeight){
+		speed = canvasWidth/500;
 		moveMaps();
+
 		currentMap.draw(g, canvasWidth, canvasHeight);
 		nextMap.draw(g, canvasWidth, canvasHeight);
 		maps.peek().draw(g, canvasWidth, canvasHeight);
-
+		p.draw(g, canvasHeight, canvasWidth);
 	}
 }
