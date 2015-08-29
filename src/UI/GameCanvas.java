@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
+import java.awt.BasicStroke;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,8 +27,9 @@ public class GameCanvas extends JPanel{
 	private boolean started;
 	private boolean glow;
 	private int ticks;
-	private int transparency = 0;
-
+	private double transparency = 180;
+	private double transChange = 0.6;
+	private Point mousePos;
 
 	Game game;
 	public GameCanvas(Game game){
@@ -36,7 +38,6 @@ public class GameCanvas extends JPanel{
 		clouds = new ArrayList<Cloud>();
 		tick = new Timer(this);
 		tick.start();
-
 	}
 
 	@Override
@@ -44,22 +45,33 @@ public class GameCanvas extends JPanel{
 		super.paintComponent(g);
 		paintBackground(g);
 		drawClouds(g);
+		drawTracer((Graphics2D)g);
 		game.drawMaps(g, this.getWidth(),this.getHeight());
 		if (inTransition) paintTransition(g);
 		else if (paused) paintPauseScreen((Graphics2D)g);
 		else if (!started) paintStartScreen((Graphics2D)g);
 	}
 
+	private void drawTracer(Graphics2D g) {
+		if (mousePos == null) return;
+		g.setStroke(new BasicStroke(3));
+		g.setPaint(new Color(255,0,0,200));
+		
+	}
+	public void setMousePos(Point p){
+		mousePos = p;
+	}
+
 	private void paintStartScreen(Graphics2D g) {
-		Color c1 = new Color(255,255,255,200);
-		Color c2 =  new Color(252,186,5,150);
+		Color c1 = new Color(255,255,255,(int)transparency);
+		Color c2 =  new Color(252,186,5,(int)transparency);
 		Point2D p = new Point2D.Float(getWidth()/2, getHeight()/2);
 		float[] dist = {0.0f,0.3f,0.5f};
 		Color[] colors = {c2,c1,c2};
 		RadialGradientPaint pauseColor = new RadialGradientPaint(p, 900, dist, colors);
 		g.setPaint(pauseColor);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+
 		//draw cloud
 		g.setPaint(Color.WHITE);
 		g.fillOval(getWidth()/10, getHeight()/10, (getWidth()/10)*3, (getHeight()/10)*3);
@@ -73,7 +85,7 @@ public class GameCanvas extends JPanel{
 		g.setFont(new Font("Comic Sans MS", Font.BOLD, getWidth()/10));
 		g.drawString("START GAME", (getWidth()/2) - (getWidth()/10)*3, getHeight()/2);
 		if (glow){
-			g.setPaint(new Color(252,186,5,transparency));
+			g.setPaint(new Color(252,186,5,(int)transparency));
 			g.drawString("START GAME", (getWidth()/2) - (getWidth()/10)*3, getHeight()/2);
 		}
 	}
@@ -149,10 +161,12 @@ public class GameCanvas extends JPanel{
 				inTransition=false;
 			}
 			else ticks++;
-		} 
-		else if(!started){
-			if (transparency < 255)	transparency+=1;
-			else transparency = 80;
+		}
+		
+		if (transparency < 240 && transparency > 100)	transparency+=transChange;
+		else {
+			transChange*=-1;
+			transparency+=transChange;
 		}
 	}
 
@@ -167,7 +181,7 @@ public class GameCanvas extends JPanel{
 		paused = !paused;
 		repaint();
 	}
-	
+
 	public void start(){
 		started = true;
 	}

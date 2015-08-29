@@ -89,17 +89,16 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		//System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
-		if (!started){
-			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
-				canvas.start();
-				started = true;
-			}
-		}
-		else{
-
+		if (started){
 			System.out.println("Stop swuing");
 			if(e.getButton() == e.BUTTON3){
 				game.playerSetFalling();
+			}
+		}
+		else{
+			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
+				canvas.start();
+				started = true;
 			}
 		}
 	}
@@ -112,6 +111,8 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			}else{
 				canvas.stopGlow();
 			}
+		}else{
+			canvas.setMousePos(new Point(e.getX(),e.getY()));
 		}
 	}
 
@@ -162,14 +163,22 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getButton() == e.BUTTON1){
-			boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
-			if(grapple){
-				playWhoosh();
+		System.out.println(started);
+		if (started){
+//			play();
+			if(e.getButton() == e.BUTTON1){
+				boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
+				if(grapple){
+					playWhoosh();
+				}
+			}
+		} else {
+			if (canvas.isOnStart(new Point(e.getX(),e.getY()))){
+				canvas.start();
+				started = true;
 			}
 		}
 	}
-
 
 
 }

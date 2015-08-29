@@ -28,6 +28,10 @@ public class Game {
 	public boolean playerJump(){
 		return p.jump();
 	}
+	
+	public Point getPlayerPos(){
+		return new Point(p.getPosX(),p.getPosY());
+	}
 
 	public boolean playerPullGrapple(int x, int y){
 		return p.pullGrapple(x, y);
