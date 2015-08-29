@@ -14,6 +14,7 @@ public class Player {
 	private int posY;
 	private int width;
 	private int height;
+	private int boxSize; // temp var
 	private Rectangle boundingBox = new Rectangle(new Point(0,0));
 
 	// Player images
@@ -22,7 +23,7 @@ public class Player {
 	private Image[] grappleImages;
 
 	// Physics helpers
-	private final int initJumpSpeed = 6;
+	private final int initJumpSpeed = 4;
 	private double vertSpeed;
 	private double grappleAngle;
 	private double pullSpeed;
@@ -99,11 +100,17 @@ public class Player {
 		}
 	}
 
-	public void move(){
+	public void move(int canvasHeight){
 		if(isJumping){
 			posY = Physics.moveJump(posX,posY,vertSpeed);
 			vertSpeed = Physics.fallSpeed(vertSpeed);
 			System.out.println(posY);
+			if(posY <= 0){
+				System.out.println("OMG");
+				posY = 0;
+				isJumping = false;
+			}
+
 		}
 		else if(isPullGrapple){
 			// need a check in here to see whether to release the grapple hook
@@ -125,10 +132,10 @@ public class Player {
 
 	public void draw(Graphics g, int canvasHeight, int canvasWidth){
 		g.setColor(Color.pink);
-		int boxSize = canvasHeight/10;
+		boxSize = canvasHeight/10;
 		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize-1 - posY, boxSize, boxSize);
 		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
-		move();
+		move(canvasHeight);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
 

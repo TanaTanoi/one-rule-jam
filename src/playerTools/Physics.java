@@ -6,7 +6,7 @@ import UI.Timer;
 
 public class Physics {
 
-	private static double gravity = -9.8;
+	private static double gravity = -2.5;
 	private static double speedX = 1;
 
 	public static Point moveRun(int currentX, int currentY){
