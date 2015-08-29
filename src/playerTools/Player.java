@@ -84,7 +84,9 @@ public class Player {
 			double centreX = boundingBox.getCenterX();
 			double centreY = boundingBox.getCenterY();
 
-			if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
+			if(x > centreX && y < centreY){ // should be only able to go forwards and upwards
+				System.out.println("Grappple");
+				pullSpeed = 2;
 				grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
 				isPullGrapple = true;
 			}
@@ -165,7 +167,8 @@ public class Player {
 
 		}
 		else if(isPullGrapple){
-
+			g.setColor(Color.YELLOW);
+			g.drawLine((int)boundingBox.getCenterX(), (int)boundingBox.getCenterY(), canvasWidth/2, 0);
 		}
 		else if(isSwingGrapple){
 
