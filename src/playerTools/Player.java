@@ -144,6 +144,9 @@ public class Player {
 			// at that point maybe it needs to be changed to isJumping so it falls,
 			// vertSpeed should be zero and not grappling anymore
 			posY = Physics.movePullGrapple(posX,posY,pullSpeed,grappleAngle);
+			if(posY > 6*boxSize || grappleX <= boxSize/2){
+				isPullGrapple = false;
+			}
 		}
 		else if(isSwingGrapple){
 			// grapple angle needs to change
