@@ -6,7 +6,7 @@ import UI.Timer;
 
 public class Physics {
 
-	private static double gravity = -2.5;
+	private static double gravity = -10;
 	private static double speedX = 1;
 
 	public static Point moveRun(int currentX, int currentY){
@@ -25,8 +25,8 @@ public class Physics {
 			int grappleX, int grappleY) {
 
 		// calculates lengths of each side of triangle
-		double adj = grappleY - currentY;
-		double opp = grappleX - currentX;
+		double adj = Math.abs(grappleY - currentY);
+		double opp = Math.abs(grappleX - currentX);
 		double hypot = Math.sqrt(adj*adj + opp*opp);
 
 		return Math.cos(adj/hypot);
@@ -45,8 +45,9 @@ public class Physics {
 	}
 
 	public static int calculateConnectPoint(double centreX, double centreY,
-			int x, int y) {
-		int grad = (centreY - )
-		return 0;
+			int x, int y, int boxSize) {
+		double grad = (y - centreY)/(x - centreX);
+		double newX = (y - centreY)/grad + centreX;
+		return (int)newX;
 	}
 }
