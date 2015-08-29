@@ -22,7 +22,7 @@ public class Player {
 	private Image[] grappleImages;
 
 	// Physics helpers
-	private final int initJumpSpeed = 3;
+	private final int initJumpSpeed = 6;
 	private double vertSpeed;
 	private double grappleAngle;
 	private double pullSpeed;
@@ -125,7 +125,7 @@ public class Player {
 	public void draw(Graphics g, int canvasHeight, int canvasWidth){
 		g.setColor(Color.pink);
 		int boxSize = canvasHeight/10;
-		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize-1, boxSize, boxSize);
+		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize-1 - posY, boxSize, boxSize);
 		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
