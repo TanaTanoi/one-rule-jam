@@ -127,6 +127,7 @@ public class Player {
 		int boxSize = canvasHeight/10;
 		boundingBox = new Rectangle(boxSize/2, boxSize*9 - boxSize-1 - posY, boxSize, boxSize);
 		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
+		move();
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
 

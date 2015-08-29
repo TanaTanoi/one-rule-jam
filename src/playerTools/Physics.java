@@ -18,7 +18,7 @@ public class Physics {
 	}
 
 	public static int moveJump(int currentX, int currentY, double vertSpeed) {
-		return (int)(vertSpeed*Timer.tickRate/1000 + 0.5*gravity*Timer.tickRate/1000*Timer.tickRate/1000); // d = vit + 1/2a(t*t)
+		return (int)((vertSpeed*Timer.tickRate/1000 + 0.5*gravity*Timer.tickRate/1000*Timer.tickRate/1000 + currentY)*100); // d = vit + 1/2a(t*t)
 	}
 
 	public static double calculateGrappleAngle(double currentX, double currentY,

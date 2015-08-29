@@ -26,6 +26,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		pack();
 		setResizable(true);
 		setVisible(true);
+		this.game = game;
 	}
 
 	private void setBindings() {
@@ -33,8 +34,8 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		AbstractAction jump = new AbstractAction("jump") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.playerJump();
 				System.out.println("jump needs implementing");
+				game.playerJump();
 			}
 		};
 
