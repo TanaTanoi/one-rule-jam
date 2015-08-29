@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
@@ -46,14 +49,13 @@ public class SoundFrame extends JFrame implements MouseListener{
 		  }
 		  System.out.println("Done whoosh");
 		  try {
-			   File file = new File("Luna.mp3");
+			   File file = new File("Luna.wav");
 			   backGround = AudioSystem.getClip();
 			   backGround.open(AudioSystem.getAudioInputStream(file));
 			  } catch (Exception e) {
 			   System.err.println(e.getMessage());
 			  }
-
-		 }
+	}
 
 	public void play(){
 		whooshClip.setFramePosition(0);
@@ -62,7 +64,6 @@ public class SoundFrame extends JFrame implements MouseListener{
 
 
 	private void startMusic() {
-		backGround.loop(Clip.LOOP_CONTINUOUSLY);
 		backGround.start();
 	}
 
