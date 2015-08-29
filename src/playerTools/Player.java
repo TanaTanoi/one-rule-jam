@@ -25,7 +25,7 @@ public class Player {
 	private Image[] grappleImages;
 
 	// Physics helpers
-	private final int initJumpSpeed = 4;
+	private final int initJumpSpeed = 7;
 	private double vertSpeed;
 	private double grappleAngle;
 	private double pullSpeed;
@@ -150,8 +150,15 @@ public class Player {
 		}
 		else{
 
-			//Physics.moveRun(posX, posY);
-			// does nothing as the xposition is constant
+			double newVertSpeed = Physics.fallSpeed(0);
+			int newPosY = Physics.moveJump(posX,posY,newVertSpeed);
+
+			if (!game.intersectsCurrentMap(boundingBox,boxSize*9-10-newPosY)){
+				posY = newPosY;
+				vertSpeed = newVertSpeed;
+			}else{//has collided
+				vertSpeed/=2;
+			}
 		}
 
 		// Need a check here that is intersection point is too low (i.e. below the ground)
