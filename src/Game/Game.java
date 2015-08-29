@@ -20,8 +20,9 @@ public class Game {
 	private Map nextMap;
 	private Player p;
 	int canvasHeight = 500 ,canvasWidth= 500;
-	public void playerJump(){
-		p.jump();
+	
+	public boolean playerJump(){
+		return p.jump();
 	}
 
 	public boolean playerPullGrapple(int x, int y){

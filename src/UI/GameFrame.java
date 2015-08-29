@@ -24,6 +24,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	// Sound clips
 	Clip whooshClip;
+	Clip jumpClip;
 
 	public GameFrame(Game game) {
 		super("Grapplehook Game");
@@ -45,7 +46,11 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("jump needs implementing");
-				game.playerJump();
+				boolean success = 	game.playerJump();
+				if(success){
+					playJump();
+				}
+			
 			}
 		};
 
@@ -94,6 +99,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	}
 
 	public void setUpSound() {
+		// Sets up whoosh sound
 		try {
 			File file = new File("Whoosh.wav");
 			whooshClip = AudioSystem.getClip();
@@ -101,12 +107,26 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
+		
+		// Sets up jump sound
+		try {
+			File file = new File("Jump.wav");
+			jumpClip = AudioSystem.getClip();
+			jumpClip.open(AudioSystem.getAudioInputStream(file));
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 
 	}
 
-	public void play(){
+	public void playWhoosh(){
 		whooshClip.setFramePosition(0);
 		whooshClip.start();
+	}
+	
+	public void playJump(){
+		jumpClip.setFramePosition(0);
+		jumpClip.start();
 	}
 
 
@@ -127,7 +147,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	public void mouseClicked(MouseEvent e) {
 		boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
 		if(grapple){
-			play();
+			playWhoosh();
 		}
 	}
 
