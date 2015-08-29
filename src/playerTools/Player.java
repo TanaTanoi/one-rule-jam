@@ -122,11 +122,12 @@ public class Player {
 			double centreX = boundingBox.getCenterX();
 			double centreY = boundingBox.getCenterY();
 
-			if(x > centreX && y > centreY){ // should be only able to go forwards and upwards
+			if(x > centreX){ // should be only able to go forwards and upwards
 				//grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
 				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, x);
 				swingLength = Physics.calculateSwingRopeLength(centreX,centreY,grappleX,boxSize);
 				isSwingGrapple = true;
+				System.out.println("Actaully grappling");
 				return true;
 			}
 		}
@@ -162,8 +163,9 @@ public class Player {
 				isJumping = true;
 			}
 		}
-		else if(isSwingGrapple){
+		else if(isSwingGrapple){			
 			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, swingLength, boxSize*7);
+			System.out.println("Swing move " + posY);
 		}
 		else{
 
