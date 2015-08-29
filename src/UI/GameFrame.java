@@ -94,15 +94,15 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	}
 
 	public void setUpSound() {
-		  try {
-		   File file = new File("Whoosh.wav");
-		   whooshClip = AudioSystem.getClip();
-		   whooshClip.open(AudioSystem.getAudioInputStream(file));
-		  } catch (Exception e) {
-		   System.err.println(e.getMessage());
-		  }
+		try {
+			File file = new File("Whoosh.wav");
+			whooshClip = AudioSystem.getClip();
+			whooshClip.open(AudioSystem.getAudioInputStream(file));
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 
-		 }
+	}
 
 	public void play(){
 		whooshClip.setFramePosition(0);
@@ -125,8 +125,10 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		play();
-		game.playerPullGrapple(e.getX(),e.getY());
+		boolean grapple = game.playerPullGrapple(e.getX(),e.getY());
+		if(grapple){
+			play();
+		}
 	}
 
 	@Override

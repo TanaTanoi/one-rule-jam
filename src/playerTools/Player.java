@@ -80,7 +80,7 @@ public class Player {
 	/**
 	 * Responsible for setting up grapple pulling motion
 	 */
-	public void pullGrapple(int x, int y){
+	public boolean pullGrapple(int x, int y){
 		if(!isGrappling()){
 			double centreX = boundingBox.getCenterX();
 			double centreY = boundingBox.getCenterY();
@@ -92,18 +92,22 @@ public class Player {
 				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, boxSize);
 				isPullGrapple = true;
 				isJumping = false;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
 	 * Responsible for setting up jumping motion
 	 */
-	public void jump(){
+	public boolean jump(){
 		if(!inAction()){
 			isJumping = true;
 			vertSpeed = initJumpSpeed;
+			return true;
 		}
+		return false;
 	}
 
 	/**

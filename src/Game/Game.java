@@ -24,8 +24,8 @@ public class Game {
 		p.jump();
 	}
 
-	public void playerPullGrapple(int x, int y){
-		p.pullGrapple(x, y);
+	public boolean playerPullGrapple(int x, int y){
+		return p.pullGrapple(x, y);
 	}
 
 	public String[] getCurrentRuleString(){
