@@ -13,14 +13,14 @@ import playerTools.Player;
  * @author Tana
  *
  */
-public class BasicMap extends Map {
+public class DontTouchGround extends Map {
 
 	Polygon bottom, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
 	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
 
-	public BasicMap(int canvasWidth, int canvasHeight){
+	public DontTouchGround(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
 		String[] ruleString = {"NO","RULE"};
 		this.ruleString = ruleString;
@@ -72,7 +72,9 @@ public class BasicMap extends Map {
 
 	@Override
 	public boolean assessRule(Player p) {
-		//No Rule
+		if(this.intersects(p.getBoundingBox())){
+			return false;
+		}
 		return true;
 	}
 

@@ -90,11 +90,6 @@ public class BasicPit extends Map {
 		return true;
 	}
 
-	@Override
-	public int intersectY(Rectangle rect) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public void resize(int canvasWidth, int canvasHeight) {

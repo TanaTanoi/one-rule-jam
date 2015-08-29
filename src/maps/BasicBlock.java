@@ -74,14 +74,6 @@ public class BasicBlock extends Map {
 		return intersects(bl)||intersects(br)||intersects(tl)||intersects(tr);
 	}
 
-	public int intersectY(Rectangle rect){
-		if(block.intersects(rect)){
-			return (int) block.getBounds().getMinY();
-		}else if(bottom.intersects(rect)){
-			return (int) bottom.getBounds().getMinY();
-		}
-		return 0;
-	}
 	@Override
 	public boolean intersects(Point p) {
 		return bottom.contains(p)||block.contains(p);
