@@ -14,6 +14,7 @@ import Game.Game;
 
 public class GameFrame extends JFrame implements MouseListener, MouseMotionListener{
 	private GameCanvas canvas;
+	private Game game;
 
 	public GameFrame(Game game) {
 		super("Grapplehook Game");
@@ -32,20 +33,21 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		AbstractAction jump = new AbstractAction("jump") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				game.playerJump();
 				System.out.println("jump needs implementing");
-			}		
+			}
 		};
-		
+
 		AbstractAction pause = new AbstractAction("pause") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("pause needs implementing");
-			}		
+			}
 		};
-		
+
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");
 		canvas.getActionMap().put("jump",jump);
-		
+
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('P'), "pause");
 		canvas.getActionMap().put("pause",pause);
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('p'), "pause");
@@ -57,7 +59,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
-		
+
 	}
 
 	@Override
@@ -65,10 +67,10 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		System.out.println("mouse moved x: " + e.getX() + " y: " + e.getY());
 	}
 
-	
-	
+
+
 	/*
-	 * METHODS THAT WON'T BE IMPLEMENTED 
+	 * METHODS THAT WON'T BE IMPLEMENTED
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {}
@@ -78,13 +80,13 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseDragged(MouseEvent e) {}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	/*
-	 * METHODS THAT WON'T BE IMPLEMENTED 
+	 * METHODS THAT WON'T BE IMPLEMENTED
 	 */
 }
