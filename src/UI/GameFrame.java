@@ -6,7 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
@@ -19,6 +22,9 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	private boolean paused;
 	private boolean started;
 
+	// Sound clips
+	Clip whooshClip;
+
 	public GameFrame(Game game) {
 		super("Grapplehook Game");
 		addMouseListener(this);
@@ -30,6 +36,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		setResizable(false);
 		setVisible(true);
 		this.game = game;
+		setUpSound();
 	}
 
 	private void setBindings() {
@@ -49,7 +56,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 				canvas.pause();
 				paused = !paused;
 				setResizable(paused);
-			}					
+			}
 		};
 
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");
@@ -59,7 +66,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		canvas.getActionMap().put("pause",pause);
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('p'), "pause");
 		canvas.getActionMap().put("pause",pause);
-		
+
 		System.out.println("riter");
 	}
 
@@ -86,6 +93,22 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		}
 	}
 
+	public void setUpSound() {
+		  try {
+		   File file = new File("Whoosh.wav");
+		   whooshClip = AudioSystem.getClip();
+		   whooshClip.open(AudioSystem.getAudioInputStream(file));
+		  } catch (Exception e) {
+		   System.err.println(e.getMessage());
+		  }
+
+		 }
+
+	public void play(){
+		whooshClip.setFramePosition(0);
+		whooshClip.start();
+	}
+
 
 
 	/*
@@ -102,6 +125,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		play();
 		game.playerPullGrapple(e.getX(),e.getY());
 	}
 
