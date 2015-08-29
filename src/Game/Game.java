@@ -22,6 +22,11 @@ public class Game {
 	public void playerJump(){
 		p.jump();
 	}
+
+	public void playerPullGrapple(int x, int y){
+		p.pullGrapple(x, y);
+	}
+
 	public String[] getCurrentRuleString(){
 		return currentMap.getRule();
 	}
