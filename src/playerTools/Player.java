@@ -1,5 +1,6 @@
 package playerTools;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -31,7 +32,8 @@ public class Player {
 	private boolean isSwingGrapple;
 
 	public Player(){
-
+		width = 40;
+		height = 40;
 	}
 
 	public int getPosX() {
@@ -120,6 +122,7 @@ public class Player {
 	}
 
 	public void draw(Graphics g){
+		g.setColor(Color.pink);
 		g.drawRect(posX, posY, width, height);
 		if(isJumping){
 
