@@ -89,7 +89,7 @@ public class Player {
 				System.out.println("Grappple");
 				pullSpeed = 2;
 				grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
-				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y);
+				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, boxSize);
 				isPullGrapple = true;
 			}
 		}
@@ -99,7 +99,7 @@ public class Player {
 	 * Responsible for setting up jumping motion
 	 */
 	public void jump(){
-		if(!inAction()){
+		if(!isJumping){
 			isJumping = true;
 			vertSpeed = initJumpSpeed;
 		}
@@ -177,7 +177,8 @@ public class Player {
 		}
 		else if(isPullGrapple){
 			g.setColor(Color.YELLOW);
-			g.drawLine((int)boundingBox.getCenterX(), (int)boundingBox.getCenterY(), canvasWidth/2, boxSize);
+			g.drawLine((int)boundingBox.getCenterX(), (int)boundingBox.getCenterY(), grappleX, boxSize);
+			grappleX--;
 		}
 		else if(isSwingGrapple){
 
