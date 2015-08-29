@@ -121,9 +121,10 @@ public class Player {
 		// that will place the player at the lowest possible point (i.e. ground level)
 	}
 
-	public void draw(Graphics g){
+	public void draw(Graphics g, int canvasHeight, int canvasWidth){
 		g.setColor(Color.pink);
-		g.drawRect(posX, posY, width, height);
+		int boxSize = 10/canvasHeight;
+		g.drawRect(canvasWidth/2 - boxSize/2, boxSize*9 - boxSize, boxSize, boxSize);
 		if(isJumping){
 
 		}
