@@ -44,12 +44,19 @@ public class Physics {
 		return (int)(currentY+distY*100);
 	}
 
-	public static int moveSwingGrapple(int currentY, int grappleX, int canvasWidth, int swingLength, int roofHeight) {
+	public static int moveSwingGrapple(int currentY, int grappleX, int canvasWidth,
+			int canvasHeight, int swingLength, int roofHeight) {
+		System.out.println("GrappleX " + grappleX + " CurrentY " + currentY);
+
 
 		double xLength = Math.abs(grappleX - canvasWidth/2);
 		double yLength = Math.sqrt(swingLength*swingLength - xLength*xLength);
 
-		return (int)yLength + roofHeight;
+		System.out.println("XLength " + xLength + " yLength" + yLength);
+		System.out.println("Canvas height " + canvasHeight);
+		System.out.println("RoofHeight " + roofHeight);
+
+		return (int)(canvasHeight - 2*roofHeight - yLength);
 	}
 
 
@@ -65,6 +72,7 @@ public class Physics {
 
 		double xLength = centreX - grappleX;
 		double yLength = centreY - grappleY;
+		System.out.println(xLength + " " + yLength + " " + (int)Math.sqrt(xLength*xLength + yLength*yLength));
 
 		return (int)Math.sqrt(xLength*xLength + yLength*yLength);
 	}

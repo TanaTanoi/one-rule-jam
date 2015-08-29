@@ -163,8 +163,8 @@ public class Player {
 				isJumping = true;
 			}
 		}
-		else if(isSwingGrapple){			
-			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, swingLength, boxSize*7);
+		else if(isSwingGrapple){
+			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, canvasHeight, swingLength, boxSize);
 			System.out.println("Swing move " + posY);
 		}
 		else{

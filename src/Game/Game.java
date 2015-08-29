@@ -122,4 +122,12 @@ public class Game {
 			break;
 		}
 	}
+
+	public boolean playerSwingGrapple(int x, int y) {
+		return p.swingGrapple(x, y);
+	}
+
+	public void playerSetFalling() {
+		p.setFalling();
+	}
 }
