@@ -80,13 +80,13 @@ public class Player {
 	/**
 	 * Responsible for setting up grapple pulling motion
 	 */
-	public void pullGrapple(int x, int y){		
-		if(!isGrappling()){			
+	public void pullGrapple(int x, int y){
+		if(!isGrappling()){
 			double centreX = boundingBox.getCenterX();
-			double centreY = boundingBox.getCenterY();			
-		
+			double centreY = boundingBox.getCenterY();
 
-			if(x > centreX){ // should be only able to go forwards and upwards				
+
+			if(x > centreX){ // should be only able to go forwards and upwards
 				pullSpeed = 2;
 				grappleAngle = Physics.calculateGrappleAngle(centreX,centreY,x, y);
 				grappleX = Physics.calculateConnectPoint(centreX, centreY, x, y, boxSize);
@@ -129,7 +129,7 @@ public class Player {
 			if (!game.intersectsCurrentMap(boundingBox,boxSize*9-10-newPosY)){
 				posY = newPosY;
 				vertSpeed = newVertSpeed;
-			}else{//has collided				
+			}else{//has collided
 				isJumping = false;
 			}
 			/*if(posY <= 0){
@@ -190,6 +190,11 @@ public class Player {
 		else{
 
 		}
+	}
+
+	public Point nextPoint(){
+		int newPosY = Physics.moveJump(posX,posY,vertSpeed);
+		return new Point(posX,newPosY);
 	}
 
 }

@@ -73,7 +73,7 @@ public class DontTouchGround extends Map {
 
 	@Override
 	public boolean assessRule(Player p) {
-		if(this.intersects(p.getBoundingBox())){
+		if(this.intersects(p.nextPoint())){
 			return false;
 		}
 		return true;

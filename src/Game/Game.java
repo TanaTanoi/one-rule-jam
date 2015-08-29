@@ -14,7 +14,7 @@ public class Game {
 	public static final int TOTAL_MAPS = 3;
 
 	int distance = 0;
-	int speed = 1;
+	private  int speed = 5;
 	private Queue<Map> maps = new ArrayDeque<Map>();
 	private Map currentMap;
 	private Map nextMap;
@@ -53,10 +53,10 @@ public class Game {
 	}
 
 	public void moveMaps(){
-		currentMap.translate(-1, 0);
-		nextMap.translate(-1, 0);
-		maps.peek().translate(-1, 0);
-		distance++;
+		currentMap.translate(-speed, 0);
+		nextMap.translate(-speed, 0);
+		maps.peek().translate(-speed, 0);
+		distance+=speed;
 		if(distance>=currentMap.getLength()){//if we are at the end of the map
 			currentMap = nextMap;
 			nextMap = maps.poll();
@@ -74,12 +74,15 @@ public class Game {
 
 
 	public void drawMaps(Graphics g, int canvasWidth, int canvasHeight){
-		speed = canvasWidth/500;
+		speed = canvasWidth/190;
 		moveMaps();
 		currentMap.draw(g);
 		nextMap.draw(g);
 		maps.peek().draw(g);
 		p.draw(g, canvasHeight, canvasWidth);
+		if(!currentMap.assessRule(p)){
+			throw new RuntimeException("YOU LOST");
+		}
 	}
 
 	public void offerNextMap(){
@@ -93,6 +96,9 @@ public class Game {
 			break;
 		case 2:
 			maps.offer(new BasicPit(canvasWidth,canvasHeight));
+			break;
+		case 3:
+			maps.offer(new DontTouchGround(canvasWidth,canvasHeight));
 			break;
 		}
 	}
