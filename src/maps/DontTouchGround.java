@@ -18,11 +18,11 @@ public class DontTouchGround extends Map {
 	Polygon bottom, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,10,10},{10,9,9,10}};
+	private final int[][] polyPoints= {{0,0,30,30},{0,1,1,0},{0,0,30,30},{10,9,9,10}};
 
 	public DontTouchGround(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
-		String[] ruleString = {"NO","RULE"};
+		String[] ruleString = {"DON'T","TOUCH","THE","GROUND"};
 		this.ruleString = ruleString;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
@@ -73,7 +73,9 @@ public class DontTouchGround extends Map {
 
 	@Override
 	public boolean assessRule(Player p) {
+		System.out.println("Players next point is " + p.nextPoint().toString());
 		if(this.intersects(p.nextPoint())){
+
 			return false;
 		}
 		return true;

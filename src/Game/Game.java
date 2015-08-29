@@ -11,7 +11,7 @@ import maps.*;
 
 public class Game {
 
-	public static final int TOTAL_MAPS = 3;
+	public static final int TOTAL_MAPS = 4;
 
 	int distance = 0;
 	private  int speed = 5;
@@ -19,7 +19,11 @@ public class Game {
 	private Map currentMap;
 	private Map nextMap;
 	private Player p;
+	private Coin coin;
 	int canvasHeight = 500 ,canvasWidth= 500;
+
+	private static int score = 0;
+	private static final int COIN_WORTH = 10;
 
 	public boolean playerJump(){
 		return p.jump();
@@ -35,11 +39,12 @@ public class Game {
 	public Game(){
 		p = new Player(this);
 		currentMap = new BasicMap(canvasWidth,canvasHeight);
-		nextMap = new BasicBlock(canvasWidth,canvasHeight);
-		nextMap.translate(500, 0);
+		nextMap = new DontTouchGround(canvasWidth,canvasHeight);
+		nextMap.translate(currentMap.getLength(), 0);
 		offerNextMap();
 		offerNextMap();
 		maps.peek().translate(currentMap.getLength()+nextMap.getLength(),0);
+		newCoin();
 
 	}
 
@@ -52,7 +57,9 @@ public class Game {
 		}
 		return false;
 	}
-
+	public void newCoin(){
+		coin = new Coin(currentMap.getLength() + ((int)(Math.random()*nextMap.getLength())),(canvasHeight/2)+(int)(Math.random()*(canvasHeight/10)*4));
+	}
 	public void moveMaps(){
 		currentMap.translate(-speed, 0);
 		nextMap.translate(-speed, 0);
@@ -65,6 +72,16 @@ public class Game {
 			distance = 0;
 			offerNextMap();
 		}
+		coin.translate(-speed);
+		if(coin.intercepts(p.getBoundingBox())){
+			newCoin();
+			score+=COIN_WORTH;
+			System.out.println("SCORE: " + score);
+		}
+		if(coin.getX()<-50){
+			newCoin();
+		}
+
 	}
 
 
@@ -84,6 +101,8 @@ public class Game {
 		if(!currentMap.assessRule(p)){
 			throw new RuntimeException("YOU LOST");
 		}
+		coin.draw(g);
+
 	}
 
 	public void offerNextMap(){
@@ -102,13 +121,5 @@ public class Game {
 			maps.offer(new DontTouchGround(canvasWidth,canvasHeight));
 			break;
 		}
-	}
-
-	public boolean playerSwingGrapple(int x, int y) {
-		return p.swingGrapple(x, y);
-	}
-
-	public void playerSetFalling() {
-		p.setFalling();
 	}
 }
