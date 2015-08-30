@@ -18,7 +18,7 @@ public class BasicMap extends Map {
 	Polygon bottom, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,70,70},{0,1,1,0},{0,0,70,70},{10,9,9,10}};
+	private final int[][] polyPoints= {{0,0,40,40},{0,1,1,0},{0,0,40,40},{10,9,9,10}};
 
 	public BasicMap(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
