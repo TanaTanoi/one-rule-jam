@@ -68,7 +68,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 				System.out.println("pause needs implementing");
 				canvas.pause();
 				paused = !paused;
-				setResizable(paused);
+				//setResizable(paused);
 			}
 		};
 
@@ -76,13 +76,12 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");
 		canvas.getActionMap().put("jump",jump);
-
+		
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('P'), "pause");
 		canvas.getActionMap().put("pause",pause);
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('p'), "pause");
 		canvas.getActionMap().put("pause",pause);
 
-		System.out.println("riter");
 	}
 
 	@Override

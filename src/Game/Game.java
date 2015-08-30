@@ -69,7 +69,8 @@ public class Game {
 		return false;
 	}
 	public void newCoin(){
-		coin = new Coin(currentMap.getLength() + ((int)(Math.random()*nextMap.getLength())),(canvasHeight/2)+(int)(Math.random()*(canvasHeight/10)*4));
+		int y = 65 + (int)(Math.random()*185);
+		coin = new Coin((currentMap.getLength() + ((int)(Math.random()*nextMap.getLength())))/(int)(Math.random()*3+2),y);
 	}
 	public void moveMaps(){
 		currentMap.translate(-speed, 0);
