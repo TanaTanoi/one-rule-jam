@@ -32,6 +32,7 @@ public class GameCanvas extends JPanel{
 	private Point mousePos;
 	private String[] curRule;
 	private int ruleLength;
+	private int score;
 	Game game;
 	public GameCanvas(Game game){
 		super();
@@ -44,14 +45,20 @@ public class GameCanvas extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
-		ruleLength = 13;
 		paintBackground(g);
 		drawClouds(g);
 		drawTracer((Graphics2D)g);
 		game.drawMaps(g, this.getWidth(),this.getHeight());
-		if (inTransition) paintTransition(g);
+		if (!started) paintStartScreen((Graphics2D)g);
 		else if (paused) paintPauseScreen((Graphics2D)g);
-		else if (!started) paintStartScreen((Graphics2D)g);
+		else if (inTransition) paintTransition(g);
+		else printScore(g);
+	}
+
+	private void printScore(Graphics g) {
+		g.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+		g.setColor(new Color(252,186,5,(int)transparency));
+		g.drawString("Score: " + score, 10, 40);
 	}
 
 	private void drawTracer(Graphics2D g) {
@@ -211,5 +218,8 @@ public class GameCanvas extends JPanel{
 	}
 	public void stopGlow() {
 		glow = false;
+	}
+	public void setScore(int s){
+		score = s;
 	}
 }

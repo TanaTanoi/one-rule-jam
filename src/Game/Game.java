@@ -83,6 +83,7 @@ public class Game {
 			newCoin();
 			score+=COIN_WORTH;
 			System.out.println("SCORE: " + score);
+			canvas.setScore(score);
 		}
 		if(coin.getX()<-50){
 			newCoin();
