@@ -76,7 +76,7 @@ public class DontJump extends Map {
 
 	@Override
 	public boolean assessRule(Player p) {
-		if(p.nextPoint().y>canvasHeight/2){
+		if(p.getFrontPoint().y<canvasHeight/10*7){
 			return false;
 		}
 		return true;
