@@ -12,7 +12,7 @@ import maps.*;
 
 public class Game {
 
-	public static final int TOTAL_MAPS = 4;
+	public static final int TOTAL_MAPS = 5;
 
 	int distance = 0;
 	private  int speed = 5;
@@ -80,7 +80,7 @@ public class Game {
 		maps.peek().translate(-speed, 0);
 		distance+=speed;
 		if(distance>=currentMap.getLength()){//if we are at the end of the map
-			canvas.transition(nextMap.getRule());
+			canvas.transition(nextMap.getRule(), nextMap.getClass().getName());
 			ticks = 100;
 			currentMap = nextMap;
 			nextMap = maps.poll();
@@ -141,6 +141,8 @@ public class Game {
 		case 3:
 			maps.offer(new DontTouchGround(canvasWidth,canvasHeight));
 			break;
+		case 4:
+			maps.offer(new DontJump(canvasWidth,canvasHeight));
 		}
 	}
 

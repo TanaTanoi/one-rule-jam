@@ -31,6 +31,7 @@ public class GameCanvas extends JPanel{
 	private double transChange = 0.6;
 	private Point mousePos;
 	private String[] curRule;
+	private String ruleString;
 	private int ruleLength;
 	private int score;
 	Game game;
@@ -195,9 +196,10 @@ public class GameCanvas extends JPanel{
 		}
 	}
 
-	public void transition(String[] ruleString){
-		
-		if(!ruleString.equals(curRule) && curRule != null)return;
+	public void transition(String[] ruleString, String rule){
+		System.out.println(rule + " "+ this.ruleString);
+		if(rule.equals(this.ruleString) && this.ruleString != null)return;
+		this.ruleString = rule;
 		curRule = ruleString;
 		ruleLength = 0;
 		for(String s: curRule) ruleLength+=(curRule.length + 1); 

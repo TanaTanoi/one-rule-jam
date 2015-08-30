@@ -27,7 +27,7 @@ public class BasicBlock extends Map {
 
 	public BasicBlock(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
-		String[] ruleString = {"NO","RULE"};
+		String[] ruleString = {"DON'T","CRASH"};
 		this.ruleString = ruleString;
 		//int bHeight = randomNumber(4, 8);
 		//int[][] blockPoints = {{4,4,7,7},{9,bHeight,bHeight,9}};

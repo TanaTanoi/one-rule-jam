@@ -26,7 +26,7 @@ public class BasicPit extends Map {
 	public BasicPit(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
 
-		String[] ruleString = {"NO","RULE"};
+		String[] ruleString = {"DON'T","FALL"};
 		this.ruleString = ruleString;
 
 		int rand = (int)(Math.random()*5)+1;

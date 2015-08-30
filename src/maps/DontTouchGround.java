@@ -76,7 +76,9 @@ public class DontTouchGround extends Map {
 
 	@Override
 	public boolean assessRule(Player p) {
-		if(this.intersects(p.nextPoint())){
+		Point np = p.getFrontPoint();
+		np = new Point(np.x,np.y-40);
+		if(this.intersects(np)){
 
 			return false;
 		}
