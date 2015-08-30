@@ -50,7 +50,7 @@ public class GameCanvas extends JPanel{
 		drawTracer((Graphics2D)g);
 		game.drawMaps(g, this.getWidth(),this.getHeight());
 		if (!game.isPlayerAlive()) paintDeathScreen((Graphics2D)g);
-		if (!started) paintStartScreen((Graphics2D)g);
+		else if (!started) paintStartScreen((Graphics2D)g);
 		else if (paused) paintPauseScreen((Graphics2D)g);
 		else if (inTransition) paintTransition(g);
 		else printScore(g);
@@ -118,16 +118,15 @@ public class GameCanvas extends JPanel{
 		g.setColor(new Color(10,10,10,200));
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(new Color(252,186,5));
-		g.setFont(new Font("Comic Sans MS", Font.BOLD, 40));
+		g.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 		if (ticks > 3) g.drawString("THE", (getWidth()/5), (getHeight()/5)*2);
 		if (ticks > 6) g.drawString("ONE", (getWidth()/5)*2, (getHeight()/5)*2);
 		if (ticks > 9) g.drawString("RULE:", (getWidth()/5)*3, (getHeight()/5)*2);
 		int charsEntered = 0;
 		for (int i = 0; i < curRule.length;i++){
 			if (ticks > 11+i) {
-				g.drawString(curRule[i], (getWidth()/2)-(35*ruleLength/2)+(35*charsEntered), (getHeight()/5)*3);
-				charsEntered+=curRule[i].length();
-			}
+				g.drawString(curRule[i], (getWidth()/2)-(22*ruleLength/2)+(25*charsEntered), (getHeight()/5)*3);
+			}charsEntered+=curRule[i].length();
 		}
 	}
 
@@ -197,6 +196,7 @@ public class GameCanvas extends JPanel{
 	}
 
 	public void transition(String[] ruleString){
+		if(!ruleString.equals(curRule))return;
 		curRule = ruleString;
 		ruleLength = 0;
 		for(String s: curRule) ruleLength+=(curRule.length + 1); 
