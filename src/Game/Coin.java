@@ -7,8 +7,9 @@ import java.awt.Rectangle;
 public class Coin {
 
 	Rectangle box;
-
-
+	private int sizeChange = 1;
+	private int xSize = 5;
+	
 	public Coin(int x, int y){
 		box = new Rectangle(x,y,40,40);
 	}
@@ -23,9 +24,10 @@ public class Coin {
 	}
 
 	public void draw(Graphics g){
-		g.setColor(Color.yellow);
-		g.fillOval(box.x, box.y, 40, 40);
-		System.out.println("DRAWING AT " + box.x + " " +box.y);
+		g.setColor(Color.YELLOW);
+		g.fillOval(box.x + (40-xSize)/2, box.y, xSize, 40);
+		if (xSize < 5 || xSize > 40)sizeChange*=-1;
+		xSize+=sizeChange;
 	}
 	public int getX(){
 		return box.x;
