@@ -2,6 +2,8 @@ package maps;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -16,24 +18,40 @@ import playerTools.Player;
  */
 public class BasicBlock extends Map {
 
-	Polygon bottom, top, block;
+	Polygon bottom, top;
+	List<Polygon> blocks;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,120,120},{0,1,1,0},{0,0,120,120},{10,9,9,10}};
-	private final int[][] blockPoints;
+	private final int[][] polyPoints= {{0,0,100,100},{0,1,1,0},{0,0,100,100},{10,9,9,10}};
+	//private final int[][] blockPoints;
+
 	public BasicBlock(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
 		String[] ruleString = {"NO","RULE"};
 		this.ruleString = ruleString;
-		int bHeight = randomNumber(6, 8);
-		int[][] blockPoints = {{4,4,7,7},{9,bHeight,bHeight,9}};
-		this.blockPoints = blockPoints;
+		//int bHeight = randomNumber(4, 8);
+		//int[][] blockPoints = {{4,4,7,7},{9,bHeight,bHeight,9}};
+		//this.blockPoints = blockPoints;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);
 		bottom = new Polygon(polyPoints[2],polyPoints[3],4);
-		block = new Polygon(blockPoints[0],blockPoints[1],4);
-		calculatePolygons(canvasWidth, canvasHeight);
+
+		blocks = new ArrayList<Polygon>();
+		int count = 5;
+		while(count < 100){
+			int blockLength = randomNumber(count, count + 10);
+			if(blockLength < 100){
+				int[] x = {count, count, blockLength, blockLength };
+				int[] y = {9,randomNumber(4,8),randomNumber(4,8),9};
+				blocks.add(new Polygon(x,y,4));
+			}
+			count = blockLength + 5;
+		}
+
+
+		//block = new Polygon(blockPoints[0],blockPoints[1],4);
+		//calculatePolygons(canvasWidth, canvasHeight);
 	}
 
 	@Override
@@ -43,26 +61,28 @@ public class BasicBlock extends Map {
 		g.setColor(color);
 
 		g.fillPolygon(bottom);
-		g.fillPolygon(block);
-	}
-
-	private void calculatePolygons(int canvasWidth, int canvasHeight){//TODO rewrite so that when it does resize, they stay same place
-		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
-		int[][] localPolyPoints = new int[4][4];
-		int[][] blockPoints = new int[2][4];
-		for(int j = 0; j < 4; j++){
-			for(int i = 0;i<4;i++){
-				localPolyPoints[j][i] = polyPoints[j][i]*boxSize;
-				if(i==3&&j==0){
-					length = localPolyPoints[j][i];
-				}
-				blockPoints[j%2][i] = this.blockPoints[j%2][i]*boxSize;
-			}
+		for(Polygon p : blocks){
+			g.fillPolygon(p);
 		}
-		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
-		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
-		block = new Polygon(blockPoints[0],blockPoints[1],4);
 	}
+//
+//	private void calculatePolygons(int canvasWidth, int canvasHeight){//TODO rewrite so that when it does resize, they stay same place
+//		int boxSize = super.getDrawBoxSize(canvasWidth, canvasHeight);
+//		int[][] localPolyPoints = new int[4][4];
+//		int[][] blockPoints = new int[2][4];
+//		for(int j = 0; j < 4; j++){
+//			for(int i = 0;i<4;i++){
+//				localPolyPoints[j][i] = polyPoints[j][i]*boxSize;
+//				if(i==3&&j==0){
+//					length = localPolyPoints[j][i];
+//				}
+//				blockPoints[j%2][i] = this.blockPoints[j%2][i]*boxSize;
+//			}
+//		}
+//		top = new Polygon(localPolyPoints[0],localPolyPoints[1],4);
+//		bottom = new Polygon(localPolyPoints[2],localPolyPoints[3],4);
+//		block = new Polygon(blockPoints[0],blockPoints[1],4);
+//	}
 
 	@Override
 	public boolean intersects(Rectangle rect) {
@@ -78,7 +98,7 @@ public class BasicBlock extends Map {
 
 	@Override
 	public boolean intersects(Point p) {
-		return bottom.contains(p)||block.contains(p);
+		return bottom.contains(p)||blocks.contains(p);
 
 	}
 
@@ -86,7 +106,10 @@ public class BasicBlock extends Map {
 	public void translate(int deltaX, int deltaY) {
 		bottom.translate(deltaX, deltaY);
 		top.translate(deltaX, deltaY);
-		block.translate(deltaX,deltaY);
+
+		for(Polygon block: blocks){
+			block.translate(deltaX,deltaY);
+		}
 	}
 
 	@Override
@@ -97,11 +120,7 @@ public class BasicBlock extends Map {
 
 	@Override
 	public void resize(int canvasWidth, int canvasHeight) {
-		calculatePolygons(canvasWidth, canvasHeight);
-
-
+		//calculatePolygons(canvasWidth, canvasHeight);
 	}
-
-
 
 }
