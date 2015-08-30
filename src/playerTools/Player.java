@@ -178,6 +178,9 @@ public class Player {
 				isSwingGrapple = false;
 				isJumping = true;
 			}
+			else if(posY<= 0){
+				isSwingGrapple = false;
+			}
 		}
 		else{
 

@@ -19,7 +19,7 @@ public class BasicBlock extends Map {
 	Polygon bottom, top, block;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,15,15},{0,1,1,0},{0,0,15,15},{10,9,9,10}};
+	private final int[][] polyPoints= {{0,0,120,120},{0,1,1,0},{0,0,120,120},{10,9,9,10}};
 	private final int[][] blockPoints;
 	public BasicBlock(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
