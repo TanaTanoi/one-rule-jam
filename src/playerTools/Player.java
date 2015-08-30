@@ -6,6 +6,11 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import Game.Game;
 
@@ -20,6 +25,7 @@ public class Player {
 	private Rectangle boundingBox = new Rectangle(new Point(0,0));
 
 	// Player images
+	private Image playerImage;
 	private Image[] runImages;
 	private Image[] jumpImages;
 	private Image[] grappleImages;
@@ -44,6 +50,9 @@ public class Player {
 		this.game = game;
 		width = 40;
 		height = 40;
+		try {
+			playerImage = ImageIO.read(new File("player.png"));
+		} catch (IOException e) {e.printStackTrace();}
 	}
 
 	public int getPosX() {
@@ -203,7 +212,8 @@ public class Player {
 		g.setColor(Color.pink);
 		boxSize = canvasHeight/10;
 		boundingBox = new Rectangle(boxSize/2, boxSize*8-10 - posY, boxSize, boxSize);
-		g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
+		//g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
+		g.drawImage(playerImage, boundingBox.x, boundingBox.y, boxSize, boxSize, 0, 0, playerImage.getWidth(null), playerImage.getHeight(null), null);
 		move(canvasHeight, canvasWidth);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
