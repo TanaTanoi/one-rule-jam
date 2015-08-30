@@ -139,7 +139,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 		// Sets up background music
 		try {
-			File file = new File("Luna.mp3");
+			File file = new File("B-3.wav");
 			backGround = AudioSystem.getClip();
 			backGround.open(AudioSystem.getAudioInputStream(file));
 		} catch (Exception e) {
