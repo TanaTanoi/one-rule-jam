@@ -33,6 +33,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		addMouseMotionListener(this);
 		canvas = new GameCanvas(game);
 		add(canvas);
+		game.setCanvas(canvas);
 		setBindings();
 		pack();
 		setResizable(false);

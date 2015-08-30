@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+import UI.GameCanvas;
 import playerTools.Player;
 import maps.*;
 
@@ -20,6 +21,7 @@ public class Game {
 	private Map nextMap;
 	private Player p;
 	private Coin coin;
+	private GameCanvas canvas;
 	int canvasHeight = 500 ,canvasWidth= 500;
 
 	private static int score = 0;
@@ -49,7 +51,6 @@ public class Game {
 		offerNextMap();
 		maps.peek().translate(currentMap.getLength()+nextMap.getLength(),0);
 		newCoin();
-
 	}
 
 	public boolean intersectsCurrentMap(Rectangle rect, int y){
@@ -70,6 +71,7 @@ public class Game {
 		maps.peek().translate(-speed, 0);
 		distance+=speed;
 		if(distance>=currentMap.getLength()){//if we are at the end of the map
+			canvas.transition(currentMap.getRule());
 			currentMap = nextMap;
 			nextMap = maps.poll();
 			maps.peek().translate(currentMap.getLength()+nextMap.getLength(), 0);
@@ -133,5 +135,8 @@ public class Game {
 
 	public void playerSetFalling() {
 		p.setFalling();
+	}
+	public void setCanvas(GameCanvas g){
+		canvas = g;
 	}
 }
