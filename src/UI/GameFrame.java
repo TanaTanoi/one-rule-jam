@@ -45,7 +45,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	private void startMusic() {
 		backGround.loop(Clip.LOOP_CONTINUOUSLY);
-		backGround.start();
+		//backGround.start();
 	}
 
 	private void setBindings() {
@@ -71,6 +71,8 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 				setResizable(paused);
 			}
 		};
+
+
 
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");
 		canvas.getActionMap().put("jump",jump);
