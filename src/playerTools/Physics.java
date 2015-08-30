@@ -49,7 +49,7 @@ public class Physics {
 		System.out.println("GrappleX " + grappleX + " CurrentY " + currentY);
 
 
-		double xLength = Math.abs(grappleX - canvasWidth/2);
+		double xLength = Math.abs(grappleX - canvasWidth/20);
 		double yLength = Math.sqrt(swingLength*swingLength - xLength*xLength);
 
 		System.out.println("XLength " + xLength + " yLength" + yLength);
