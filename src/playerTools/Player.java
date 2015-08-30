@@ -182,7 +182,7 @@ public class Player {
 			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, canvasHeight, swingLength, boxSize);
 			System.out.println("Swing move " + posY);
 
-			if(grappleX <= 0 || posY >= boxSize*6){
+			if( posY >= boxSize*6){
 				vertSpeed = 0;
 				isSwingGrapple = false;
 				isJumping = true;
@@ -213,7 +213,8 @@ public class Player {
 		boxSize = canvasHeight/10;
 		boundingBox = new Rectangle(boxSize/2, boxSize*8-10 - posY, boxSize, boxSize);
 		//g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
-		g.drawImage(playerImage, boundingBox.x, boundingBox.y, boxSize, boxSize, 0, 0, playerImage.getWidth(null), playerImage.getHeight(null), null);
+		//g.drawImage(playerImage, boundingBox.x, boundingBox.y, boxSize, boxSize, 0, 0, playerImage.getWidth(null), playerImage.getHeight(null), null);
+		g.drawImage(playerImage,boundingBox.x,boundingBox.y,boxSize,boxSize,null);
 		move(canvasHeight, canvasWidth);
 		//g.fillRect(x, y, canvasWidth, canvasHeight);
 		if(isJumping){
