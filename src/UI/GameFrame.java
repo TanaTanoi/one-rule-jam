@@ -92,7 +92,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 			System.out.println("GRAPPLE TIME");
 			boolean swingGrapple = game.playerSwingGrapple(e.getX(),e.getY());
 			if(swingGrapple){
-				//playWhoosh();
+				playWhoosh();
 			}
 		}
 	}
