@@ -19,7 +19,7 @@ public class BasicPit extends Map {
 	Polygon bottomA, bottomB, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,10,10},{0,1,1,0},{0,0,4,4},{10,9,9,10},{6,6,10,10},{10,8,8,10}};
+	private int[][] polyPoints;//= {{0,0,10,10},{0,1,1,0},{0,0,4,4},{10,9,9,10},{6,6,10,10},{10,8,8,10}};
 	public BasicPit(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
 
@@ -27,10 +27,11 @@ public class BasicPit extends Map {
 		this.ruleString = ruleString;
 
 		int rand = (int)(Math.random()*5)+1;
-		int[][] pitPoints = {{0,0,rand,rand},{10,9,9,10},{rand+3,rand+3,10,10},{10,8,8,10}};
-		for(int i = 0;i<4;i++){
-			polyPoints[i+2]=pitPoints[i];
-		}
+		int h = (int)(Math.random()*3);
+		int len = (int)(Math.random()*10)+10;
+		int gap = (int)(Math.random()*4)+2;
+		int[][] pitPoints = {{0,0,len,len},{0,1,1,0},{0,0,rand,rand},{10,9,9,10},{rand+gap,rand+gap,len,len},{10,10-h,10-h,10}};
+		polyPoints = pitPoints;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
 		top = new Polygon(polyPoints[0],polyPoints[1],4);

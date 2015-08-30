@@ -18,11 +18,14 @@ public class DontTouchGround extends Map {
 	Polygon bottom, top;
 	Color color;
 	//array 1,2 top x,y 3,4 bottom,x,y
-	private final int[][] polyPoints= {{0,0,30,30},{0,1,1,0},{0,0,30,30},{10,9,9,10}};
+	private int[][] polyPoints= {{0,0,30,30},{0,1,1,0},{0,0,30,30},{10,9,9,10}};
 
 	public DontTouchGround(int canvasWidth, int canvasHeight){
 		super(canvasWidth,canvasHeight);
 		String[] ruleString = {"DON'T","TOUCH","THE","GROUND"};
+		int len = (int)(Math.random()*20)+15;
+		int[][] polyPoints = {{0,0,len,len},{0,1,1,0},{0,0,len,len},{10,9,9,10}};
+		this.polyPoints = polyPoints;
 		this.ruleString = ruleString;
 		length = 10;
 		color = new Color((int) (Math.random()*100000));
