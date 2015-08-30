@@ -27,7 +27,7 @@ public class Game {
 
 	private static int score = 0;
 	private static final int COIN_WORTH = 10;
-	
+
 	public Game(){
 		p = new Player(this);
 		currentMap = new BasicMap(canvasWidth,canvasHeight);
@@ -42,11 +42,11 @@ public class Game {
 	public boolean playerJump(){
 		return p.jump();
 	}
-	
+
 	public boolean isPlayerAlive(){
 		return isAlive;
 	}
-	
+
 	public Point getPlayerPos(){
 		return new Point(p.getPosX(),p.getPosY());
 	}
@@ -95,6 +95,7 @@ public class Game {
 			newCoin();
 		}
 
+
 	}
 
 
@@ -116,7 +117,9 @@ public class Game {
 //			isAlive = false;
 		}
 		coin.draw(g);
-
+		if(currentMap.intersects(p.getFrontPoint())){
+			isAlive = false;
+		}
 	}
 
 	public void offerNextMap(){

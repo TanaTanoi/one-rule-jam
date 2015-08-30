@@ -223,7 +223,9 @@ public class Player {
 
 		}
 	}
-
+	public Point getFrontPoint(){
+		return new Point(boxSize/2+boxSize,(boxSize*8-10 - posY)+boxSize/2);
+	}
 	public Point nextPoint(){
 		int newPosY = Physics.moveJump(posX,posY,vertSpeed);
 		return new Point(posX,newPosY);
