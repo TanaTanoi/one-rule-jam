@@ -76,6 +76,7 @@ public class Player {
 	}
 
 	public void setFalling(){
+		vertSpeed = 0;
 		isPullGrapple = false;
 		isSwingGrapple = false;
 		isJumping = true;
