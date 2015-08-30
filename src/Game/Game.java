@@ -22,13 +22,29 @@ public class Game {
 	private Player p;
 	private Coin coin;
 	private GameCanvas canvas;
+	private boolean isAlive = true;
 	int canvasHeight = 500 ,canvasWidth= 500;
 
 	private static int score = 0;
 	private static final int COIN_WORTH = 10;
+	
+	public Game(){
+		p = new Player(this);
+		currentMap = new BasicMap(canvasWidth,canvasHeight);
+		nextMap = new DontTouchGround(canvasWidth,canvasHeight);
+		nextMap.translate(currentMap.getLength(), 0);
+		offerNextMap();
+		offerNextMap();
+		maps.peek().translate(currentMap.getLength()+nextMap.getLength(),0);
+		newCoin();
+	}
 
 	public boolean playerJump(){
 		return p.jump();
+	}
+	
+	public boolean isPlayerAlive(){
+		return isAlive;
 	}
 	
 	public Point getPlayerPos(){
@@ -41,16 +57,6 @@ public class Game {
 
 	public String[] getCurrentRuleString(){
 		return currentMap.getRule();
-	}
-	public Game(){
-		p = new Player(this);
-		currentMap = new BasicMap(canvasWidth,canvasHeight);
-		nextMap = new DontTouchGround(canvasWidth,canvasHeight);
-		nextMap.translate(currentMap.getLength(), 0);
-		offerNextMap();
-		offerNextMap();
-		maps.peek().translate(currentMap.getLength()+nextMap.getLength(),0);
-		newCoin();
 	}
 
 	public boolean intersectsCurrentMap(Rectangle rect, int y){
@@ -107,6 +113,7 @@ public class Game {
 		p.draw(g, canvasHeight, canvasWidth);
 		if(!currentMap.assessRule(p)){
 //			throw new RuntimeException("YOU LOST");
+//			isAlive = false;
 		}
 		coin.draw(g);
 

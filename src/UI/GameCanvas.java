@@ -49,6 +49,7 @@ public class GameCanvas extends JPanel{
 		drawClouds(g);
 		drawTracer((Graphics2D)g);
 		game.drawMaps(g, this.getWidth(),this.getHeight());
+		if (!game.isPlayerAlive()) paintDeathScreen((Graphics2D)g);
 		if (!started) paintStartScreen((Graphics2D)g);
 		else if (paused) paintPauseScreen((Graphics2D)g);
 		else if (inTransition) paintTransition(g);
@@ -155,6 +156,20 @@ public class GameCanvas extends JPanel{
 		g2d.setPaint(backColor);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
 	}
+	
+	private void paintDeathScreen(Graphics2D g) {
+		Color c1 = new Color(255,0,0,(int)transparency);
+		Color c2 = new Color(10,10,10,(int)transparency);
+		Point2D p = new Point2D.Float(getWidth()/2, getHeight()/2);
+		float[] dist = {0.0f,0.3f,0.5f};
+		Color[] colors = {c2,c1,c2};
+		RadialGradientPaint pauseColor = new RadialGradientPaint(p, 900, dist, colors);
+		g.setPaint(pauseColor);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.setPaint(Color.BLACK);
+		g.setFont(new Font("Comic Sans MS", Font.BOLD, getWidth()/10));
+		g.drawString("YOU DIED", (getWidth()/2) - (getWidth()/20)*5, getHeight()/2);
+	}
 
 	@Override
 	public Dimension getPreferredSize(){
@@ -184,7 +199,7 @@ public class GameCanvas extends JPanel{
 	public void transition(String[] ruleString){
 		curRule = ruleString;
 		ruleLength = 0;
-		for(String s: curRule) ruleLength+=curRule.length; 
+		for(String s: curRule) ruleLength+=(curRule.length + 1); 
 		tick.setTick(200);
 		ticks = 0;
 		inTransition = true;
@@ -222,4 +237,6 @@ public class GameCanvas extends JPanel{
 	public void setScore(int s){
 		score = s;
 	}
+	
+	
 }
