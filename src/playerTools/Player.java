@@ -123,7 +123,7 @@ public class Player {
 	 * @return
 	 */
 	public boolean swingGrapple(int x, int y){
-		if(!isGrappling()){
+		if(!isGrappling() && isJumping){
 			double centreX = boundingBox.getCenterX();
 			double centreY = boundingBox.getCenterY();
 

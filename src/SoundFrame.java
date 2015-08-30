@@ -17,7 +17,7 @@ import sun.audio.*;
 public class SoundFrame extends JFrame implements MouseListener{
 
 	Clip whooshClip;
-	Clip backGround;
+	MediaPlayer backGround;
 
 	public SoundFrame(){
 		setSize(200,200);
@@ -49,9 +49,8 @@ public class SoundFrame extends JFrame implements MouseListener{
 		  }
 		  System.out.println("Done whoosh");
 		  try {
-			   File file = new File("Luna.wav");
-			   backGround = AudioSystem.getClip();
-			   backGround.open(AudioSystem.getAudioInputStream(file));
+			   Media hit =  new Media("B-3");
+			   backGround = new MediaPlayer(hit);
 			  } catch (Exception e) {
 			   System.err.println(e.getMessage());
 			  }
@@ -64,7 +63,7 @@ public class SoundFrame extends JFrame implements MouseListener{
 
 
 	private void startMusic() {
-		backGround.start();
+		backGround.play();
 	}
 
 
