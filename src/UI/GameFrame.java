@@ -10,6 +10,7 @@ import java.io.File;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
@@ -77,7 +78,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 		canvas.getInputMap().put(KeyStroke.getKeyStroke(' '), "jump");
 		canvas.getActionMap().put("jump",jump);
-		
+
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('P'), "pause");
 		canvas.getActionMap().put("pause",pause);
 		canvas.getInputMap().put(KeyStroke.getKeyStroke('p'), "pause");
@@ -100,7 +101,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	public void mouseReleased(MouseEvent e) {
 		//System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
 		if (started){
-			System.out.println("Stop swuing");
+			//System.out.println("Stop swuing");
 			if(e.getButton() == e.BUTTON3){
 				game.playerSetFalling();
 			}
@@ -141,7 +142,7 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 		// Sets up background music
 		try {
-			File file = new File("B-3.wav");
+			File file = new File("backGround.wav");
 			backGround = AudioSystem.getClip();
 			backGround.open(AudioSystem.getAudioInputStream(file));
 		} catch (Exception e) {
