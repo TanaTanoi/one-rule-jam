@@ -51,7 +51,7 @@ public class Player {
 		width = 40;
 		height = 40;
 		try {
-			playerImage = ImageIO.read(new File("player.png"));
+			playerImage = ImageIO.read(new File("Player.png"));
 		} catch (IOException e) {e.printStackTrace();}
 	}
 
@@ -212,11 +212,10 @@ public class Player {
 		g.setColor(Color.pink);
 		boxSize = canvasHeight/10;
 		boundingBox = new Rectangle(boxSize/2, boxSize*8-10 - posY, boxSize, boxSize);
-		//g.fillRect(boundingBox.x,boundingBox.y,boundingBox.width,boundingBox.height);
-		//g.drawImage(playerImage, boundingBox.x, boundingBox.y, boxSize, boxSize, 0, 0, playerImage.getWidth(null), playerImage.getHeight(null), null);
+
 		g.drawImage(playerImage,boundingBox.x,boundingBox.y,boxSize,boxSize,null);
 		move(canvasHeight, canvasWidth);
-		//g.fillRect(x, y, canvasWidth, canvasHeight);
+
 		if(isJumping){
 
 		}
