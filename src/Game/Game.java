@@ -24,6 +24,7 @@ public class Game {
 	private GameCanvas canvas;
 	private boolean isAlive = true;
 	int canvasHeight = 500 ,canvasWidth= 500;
+	int ticks = 0;
 
 	private static int score = 0;
 	private static final int COIN_WORTH = 10;
@@ -33,6 +34,7 @@ public class Game {
 		currentMap = new BasicMap(canvasWidth,canvasHeight);
 		nextMap = new DontTouchGround(canvasWidth,canvasHeight);
 		nextMap.translate(currentMap.getLength(), 0);
+		maps.offer(new BasicMap(canvasWidth,canvasHeight));
 		offerNextMap();
 		offerNextMap();
 		maps.peek().translate(currentMap.getLength()+nextMap.getLength(),0);
@@ -78,7 +80,8 @@ public class Game {
 		maps.peek().translate(-speed, 0);
 		distance+=speed;
 		if(distance>=currentMap.getLength()){//if we are at the end of the map
-			canvas.transition(currentMap.getRule());
+			canvas.transition(nextMap.getRule());
+			ticks = 100;
 			currentMap = nextMap;
 			nextMap = maps.poll();
 			maps.peek().translate(currentMap.getLength()+nextMap.getLength(), 0);
@@ -113,14 +116,14 @@ public class Game {
 		nextMap.draw(g);
 		maps.peek().draw(g);
 		p.draw(g, canvasHeight, canvasWidth);
-		if(!currentMap.assessRule(p)){
-//			throw new RuntimeException("YOU LOST");
-//			isAlive = false;
+		if(!currentMap.assessRule(p) && ticks < 1){
+			isAlive = false;
 		}
 		coin.draw(g);
 		if(currentMap.intersects(p.getFrontPoint())){
 			isAlive = false;
 		}
+		if(ticks > 0)ticks--;
 	}
 
 	public void offerNextMap(){

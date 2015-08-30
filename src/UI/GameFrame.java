@@ -55,7 +55,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		AbstractAction jump = new AbstractAction("jump") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("jump needs implementing");
 				boolean success = 	game.playerJump();
 				if(success){
 					playJump();
@@ -67,7 +66,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 		AbstractAction pause = new AbstractAction("pause") {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("pause needs implementing");
 				canvas.pause();
 				paused = !paused;
 				//setResizable(paused);
@@ -89,7 +87,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(e.getButton() == e.BUTTON3){
-			System.out.println("GRAPPLE TIME");
 			boolean swingGrapple = game.playerSwingGrapple(e.getX(),e.getY());
 			if(swingGrapple){
 				playWhoosh();
@@ -101,7 +98,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 	public void mouseReleased(MouseEvent e) {
 		//System.out.println("hook fired x: " + e.getX() + " y: " + e.getY());
 		if (started){
-			//System.out.println("Stop swuing");
 			if(e.getButton() == e.BUTTON3){
 				game.playerSetFalling();
 			}
@@ -177,7 +173,6 @@ public class GameFrame extends JFrame implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println(started);
 		if (started){
 			//			play();
 			if(e.getButton() == e.BUTTON1){

@@ -196,7 +196,8 @@ public class GameCanvas extends JPanel{
 	}
 
 	public void transition(String[] ruleString){
-		if(!ruleString.equals(curRule))return;
+		
+		if(!ruleString.equals(curRule) && curRule != null)return;
 		curRule = ruleString;
 		ruleLength = 0;
 		for(String s: curRule) ruleLength+=(curRule.length + 1); 

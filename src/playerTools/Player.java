@@ -143,7 +143,6 @@ public class Player {
 				swingLength = Physics.calculateSwingRopeLength(centreX,centreY,grappleX,boxSize);
 				isSwingGrapple = true;
 				isJumping = false;
-				System.out.println("Actaully grappling");
 				return true;
 			}
 		}
@@ -181,7 +180,6 @@ public class Player {
 		}
 		else if(isSwingGrapple){
 			posY = Physics.moveSwingGrapple(posY, grappleX, canvasWidth, canvasHeight, swingLength, boxSize);
-			System.out.println("Swing move " + posY);
 
 			if( posY >= boxSize*6){
 				vertSpeed = 0;
